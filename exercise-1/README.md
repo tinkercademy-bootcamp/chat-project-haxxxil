@@ -7,8 +7,11 @@
 - Answer the following questions in this file and commit and push your changes.
 - Bonus sections are more difficult and optional.
 - How can you find the information required to complete these tasks?
+  - Google, or AI probably. Man pages for documentation (or other similar documentation) regarding function calls.
 - How can you tell if the source of your information is good?
+  - Man pages are the best but long to read. AI probably isn't always reliable (maybe Perplexity and check sources). Stack overflow is mostly reliable. Probably anything that multiple sources agree upon is good.
 - How would you define "good" in this situation?
+  - Sources and information that I can rely on without worrying their validity (man pages are the best) would be "good". 
 
 ## Learn Basics of g++ CLI
 
