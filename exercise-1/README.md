@@ -35,17 +35,36 @@
 - [Quickstart tutorial to make](https://makefiletutorial.com/) - Learn make 
   fundamentals with practical examples and common patterns.
 - How else can you learn about make?
+  - Search on Google or YouTube, or read GNU make documentation.
 - How can you tell if the resource you are using is correct?
+  - I can test and confirm with `make --help` or `man make` or just verify if multiple sources have the same information if something doesn't work as expected.
 - Create a makefile such that when you run `make` with no arguments, it will:
   - Create `build/` directory if it does not exist
   - Create executables **client** and **server** in `build/`, if needed
   - How does make know when it needs to rebuild the executables?
+    - It rebuilds the executables if they don't exist or if the pre-requisites (the source files) have been modified after the last time the executables were modified.
   - Change your Makefile such that `make clean` will remove `build/` and all
     its contents
 - What are the most important command line arguments to learn for make?
+  - Some important command line arguments to learn for make are:
+    - `-f` to specify a makefile other than `Makefile`
+    - `-C <dir>` to run execute the makefile from the directory `<dir>`
+    - `-n` to dry-run, i.e. to just show what commands would be run without actually running them.
+    - `VAR=value` override variable value in the makefile.
 - What are the most important directives to learn about in Makefile?
+  - The most important directives to learn about in makefile are:
+    - `target: prerequisites`
+    - Variables in makefiles.
+    - Pattern rules
+    - Conditionals
 - What are the most important commands to implement in your Makefile?
+  - The most important commands are:
+    - `all`
+    - `clean`
+    - `test`
+    - `install` and `uninstall`
 - Which ones are essential, which ones are nice to haves?
+  - `all` and `clean` are essential, and depending on the type of program the others are nice to have.
 
 ## Learn Basics of Git
 
