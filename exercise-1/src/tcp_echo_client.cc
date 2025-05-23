@@ -8,6 +8,8 @@
 
 int main() {
   // #Question - are these the same type?
+  //
+  // #Answer - no, one is C-style string the other is a C++ std::string
   std::string message = "Hello from client";
   const int kPort = 8080;
   const std::string kServerAddress = "127.0.0.1";
