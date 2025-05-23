@@ -17,6 +17,7 @@
 
 - Compile the TCP client and server using `g++` from command line.
 - What are the most important command line arguments to learn for `g++`?
+  - The most important `g++` arguments are `-c`(don't link), `-o`(output file), `-g`(debug mode), `-O`(optimizations), `-Wall`(all warnings), `-I`(include directories), `-l`, and `--std=c++<version>`. 
 - What is the difference between debug vs release versions?
 - What are the tradeoffs between debug and release versions?
 - What arguments would you use in a debug build?
