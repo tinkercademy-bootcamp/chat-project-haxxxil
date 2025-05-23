@@ -19,10 +19,15 @@
 - What are the most important command line arguments to learn for `g++`?
   - The most important `g++` arguments are `-c`(don't link), `-o`(output file), `-g`(debug mode), `-O`(optimizations), `-Wall`(all warnings), `-I`(include directories), `-l`, and `--std=c++<version>`. 
 - What is the difference between debug vs release versions?
+  - Debug versions also compile code that is useful for debugging and may be slow and inefficient. Release version is the final optimized code that is used in the final product.
 - What are the tradeoffs between debug and release versions?
+  - It would be harder to debug on a release version since it doesn't give the amount of information a debug version would, but this also makes debug versions slower and maybe less usable.
 - What arguments would you use in a debug build?
+  - `-g` is useful for a debug build, along with maybe some macros (with `-D`) that might give extra debug information.
 - What about for release?
+  - `-O` would be useful for release versions since it applies compiler optimizations. For release versions as well we may define macros that might compile code specifically for release version.
 - What other kinds of build types are useful?
+  - Other useful build types are profiling (for performance) and test (checking correctness).
 
 ## Learn Basics of Make
 
