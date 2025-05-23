@@ -88,9 +88,14 @@
   `"hello message from the command prompt"` to the server
 - Commit your changes into git
 - What do all these headers do?
+  - `arpa/inet.h` is a useful utility for manipulation of IP addresses and conversions between different formats.
+  - `netinet/in.h` is useful for defining structures that help store IP and port addresses
+  - `sys/socket.h` is useful for creating sockets and related system calls such as `send`, `connect`, `read` and `listen`.
 - How do you find out which part of the below code comes from which header?
+  - I can look up information about the headers or also look up information about the functions or types to find out which header they are from.
 - How do you change the code so that you are sending messages to servers
   other than localhost?
+  - We can change the `kServerAddress` to the target server IP address to send it to servers other than localhost.
 - How do you change the code to send to a IPv6 address instead of IPv4?
 - **Bonus**: How do you change the client code to connect by hostname instead
   of IP address?
