@@ -53,8 +53,10 @@ formatting.".
 ## Introduction to C++ and Sockets Programming
 
 - Read the code in `src/`
-- Are there any bugs in this code? 
+- Are there any bugs in this code?
+  - One small bug (or maybe it was intended) that I could find is that both client and server just get stuck when client sends empty string, i.e. on `./client ""`.
 - What can you do to identify if there are bugs in the code?
+  - We can try to test this program manually on normal and edge cases, write tests to test it, run the code through a debugger and see if anything is off, or maybe have multiple people read through the code to catch any bugs.
 
 ## Refactoring: Extract Function
 
