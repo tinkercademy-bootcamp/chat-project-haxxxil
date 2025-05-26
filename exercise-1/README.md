@@ -120,9 +120,16 @@
 - When is it better to use a reference?
   - It is better to use a reference when there is no need to change the object which we need to point to, for example when passing an object without copying as a function parameter.
 - What is the difference between `std::string` and a C-style string?
+  - `std::string` is a class that is kind of like a wrapper around C-style strings with additional functionality, such as automated memory management. The `c_str()` method can be used to get the underlying C-style string from a `std::string`.
 - What type is a C-style string?
+  - A C-style string is a null-terminated (`\0`) array of `char`.
 - What happens when you iterate a pointer?
+  - Depending on the type of the pointer, the new value is the old value plus the size of the type of object the pointer refers to.
 - What are the most important safety tips to know when using pointers?
+  - Always initialize pointers(either to `NULL` or to the address of some existing object).
+  - Make sure the pointer type matches the object it references, and that the pointer isn't out of bounds.
+  - Always check whether pointer is `NULL` before dereferencing it.
+  - Always `free()` dynamic memory after use and set pointer to `NULL`.
 
 ## Learn Basics of Creating a C++ Project in Your IDE
 
