@@ -12,6 +12,7 @@
   overview and protocol families
 - Or type `man 7 socket` in terminal
 - When would you want to use a `SOCK_RAW` stream?
+  - I would use `SOCK_RAW` if I have my own protocol I want to use to communicate.
 
 ### TCP and IP Protocols
 - [IPv4](https://www.rfc-editor.org/info/rfc791) - Internet Protocol 
