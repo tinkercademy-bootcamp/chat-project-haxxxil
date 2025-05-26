@@ -152,6 +152,9 @@
   - The most authoritative source of information about the C++ programming language would be the latest ISO C++ standard. Along with this, the compiler documentation would be useful for compiler specific knowledge.
 - What information can you find about using Markdown when structuring prompts 
   to LLMs?
-  - 
+  - Markdown formatting is useful to organize information given to an LLM and it helps in making the LLM better understand the prompt.
 - What is the difference between LLM and AI?
+  - LLMs are models that focus on processing and generating human languages, whereas AI is a broad term encompassing machines that can have human-like intelligence. LLMs are essentially a subset of AI.
 - Is it grammatically correct in English to say "a LLM" or "an LLM"? Why?
+  - It is correct to say "an LLM" since the we say "ell-ell-emm" which starts with a vowel sound.
+  
