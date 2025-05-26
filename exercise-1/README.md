@@ -134,16 +134,24 @@
 ## Learn Basics of Creating a C++ Project in Your IDE
 
 - How do you compile and run your project in your IDE?
+  - For single file programs, I just go to terminal and use the compiler. Otherwise I will use a Makefile. 
 
 ## Improving Interactions with LLMs
 
 - What is the most authoritative source of information about `socket()`
   from `<sys/socket.h>`?
+  - The POSIX standard defining `socket()` at [https://pubs.opengroup.org/onlinepubs/9799919799/](https://pubs.opengroup.org/onlinepubs/9799919799/) is the most authoritative source of information about it. 
 - What is the most authoritative source of information about the TCP and IP
   protocols?
+  - The most authoritative sources of information about the TCP and IP protocols are the standards documents maintained by the IETF.
+    - [TCP](https://datatracker.ietf.org/doc/html/rfc9293)
+    - [IPv4](https://datatracker.ietf.org/doc/html/rfc791)
+    - [IPv6](https://datatracker.ietf.org/doc/html/rfc8200)
 - What is the most authoritative source of information about the C++
   programming language?
+  - The most authoritative source of information about the C++ programming language would be the latest ISO C++ standard. Along with this, the compiler documentation would be useful for compiler specific knowledge.
 - What information can you find about using Markdown when structuring prompts 
   to LLMs?
+  - 
 - What is the difference between LLM and AI?
 - Is it grammatically correct in English to say "a LLM" or "an LLM"? Why?
