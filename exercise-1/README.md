@@ -97,8 +97,13 @@
   other than localhost?
   - We can change the `kServerAddress` to the target server IP address to send it to servers other than localhost.
 - How do you change the code to send to a IPv6 address instead of IPv4?
+  - Most network related functions and structs in the code are for IPv4. These need to be changed to support IPv6. To send data from `tcp_echo_client.cc`:
+    - `kServerAddress` needs to be changed.
+    - `AF_INET` should be changed to `AF_INET6`.
+    - `sockaddr_in` should be changed to `sockaddr_in6` and consequently `sin_family` would become `sin6_family` and `sin_port` would become `sin6_port`.
 - **Bonus**: How do you change the client code to connect by hostname instead
   of IP address?
+  - We can use the `getaddrinfo` function to get a list of addresses for a given hostname and try creating a connection to them, and this would be compatible with both IPv4 and IPv6.
   
 ## Introduction to Memory Management
 
