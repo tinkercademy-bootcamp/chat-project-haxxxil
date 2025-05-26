@@ -109,11 +109,16 @@
 
 - What is happening in line 26 of `tcp-echo-client.cc`? 
   `if (inet_pton(AF_INET, kServerAddress.c_str(), &address.sin_addr) <= 0) {`
+  - The `inet_pton` function tries converting the IPv4 address in `kServerAddress` from human-readable form to binary form so that it can be used to connect. If it is successful, it returns 1 and stores the binary form in `&address.sin_addr`, otherwise a value <=0 is returned. 
 - What is happening in line 31 of `tcp-echo-client.cc`?
   `if (connect(my_sock, (sockaddr *)&address, sizeof(address)) < 0) {`
+  - The `connect` function tries to initiate a connection to the server given by `address` on our socket `my_sock`. A negative value is returned if the function fails to establish a connection.
 - What is the difference between a pointer and a reference?
+  - A pointer is a variable that stores an address to an object whereas a reference is just an alias for the object. Pointers can be `NULL` or they can be reassigned to point to another object but a reference always refers to a single object.
 - When is it better to use a pointer?
+  - It is better to use pointers in cases where it may be useful to change where the pointer points or have null pointers (e.g. linked lists).
 - When is it better to use a reference?
+  - It is better to use a reference when there is no need to change the object which we need to point to, for example when passing an object without copying as a function parameter.
 - What is the difference between `std::string` and a C-style string?
 - What type is a C-style string?
 - What happens when you iterate a pointer?
