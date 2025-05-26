@@ -61,9 +61,13 @@ formatting.".
 ## Refactoring: Extract Function
 
 - What is different in this code compared to exercise-1?
+  - This code is much more modular than exercise-1.
 - Is this code better or worse than exercise-1?
+  - This code is better than exercise-1 since modularity helps in readability, debugging, organization and testing.
 - What are the tradeoffs compared to exercise-1?
+  - This code might have more overhead compared to exercise-1 but is much easier to write and debug.
 - Are you able to spot any mistakes or inconsistencies in the changes?
+  - One slight difference is that in exercise-1 server code, there was only one buffer that kept being reused, but in this exercise each new connection gets its own buffer, which is better.
   
 ## Thinking About Performance
 
