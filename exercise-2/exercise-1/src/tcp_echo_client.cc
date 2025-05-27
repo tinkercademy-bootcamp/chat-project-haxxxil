@@ -39,22 +39,27 @@ void connect_server(int sockfd, struct sockaddr * addr, socklen_t addrlen)
   }
 }
 
+void send_and_recv(std::string message, int sockfd)
+{
+  const int kBufferSize = 1024;
+  char buffer[kBufferSize] = {0};
+  // Send message
+  send(sockfd, message.c_str(), message.size(), 0);
+  std::cout << "Sent: " << message << "\n";
+  // Wait for reply
+  ssize_t read_size = read(sockfd, buffer, kBufferSize);
+  std::cout << "Received: " << buffer << "\n";
+}
+
 int main() {
   // #Question - are these the same type?
   std::string message = "Hello from client";
   const int kPort = 8080;
   const std::string kServerAddress = "127.0.0.1";
-  const int kBufferSize = 1024;
-  char buffer[kBufferSize] = {0};
   int my_sock = create_socket();
   sockaddr_in address = get_server_addr(kServerAddress, kPort);
   connect_server(my_sock, (sockaddr *)&address, sizeof(address));
-  // Send message
-  send(my_sock, message.c_str(), message.size(), 0);
-  std::cout << "Sent: " << message << "\n";
-  // Wait for reply
-  ssize_t read_size = read(my_sock, buffer, kBufferSize);
-  std::cout << "Received: " << buffer << "\n";
+  send_and_recv(message, my_sock);
   // Close the socket
   close(my_sock);
   return 0;
