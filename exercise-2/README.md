@@ -89,8 +89,10 @@ formatting.".
 - Make sure to commit each change as small and self-contained commit
 - This will make it easier to revert your code if you need to
 - What is `git tag`? How is `git tag` different from `git branch`?
+  - A `git tag` references to some commit in the repository. They can be used to mark important points during the process and can be thought of as aliases to specific commits. `git branch` refers to a chain of commits or some development history instead of just a particular commit.
 - How can you use `git tag` and `git branch` to make programming easier and
   more fun?
+  - These functions can help us essentially make "checkpoints" and allow us to easily revert in case something goes wrong. This makes it easier to explore and just try new things without fear of breaking already working code. These features also make it easier for multiple people to collaborate on a project.
 
 ## Learn Basics of Debugging in Your IDE
 
