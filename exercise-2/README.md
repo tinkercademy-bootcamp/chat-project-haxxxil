@@ -103,6 +103,7 @@ formatting.".
 - In debug mode, how do you add a breakpoint?
   - Clicking on the margin next to the line number toggles a breakpoint on that line.
 - In debug mode, how do you step through code?
+  - There are options at the top of the screen in debug mode that allow us to step through code in different ways (step into, step over, etc.).
 
 ### Memory Management and Debug Mode in Your IDE
 
