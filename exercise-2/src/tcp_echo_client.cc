@@ -43,6 +43,8 @@ void connect_to_server(int sock, sockaddr_in &server_address) {
 void send_and_receive_message(int sock, const std::string &message) {
   const int kBufferSize = 1024;
   // #Question - is buffer the best name we can use?
+  //
+  // #Answer - We can use something like client_receive_buffer maybe for more clarity.
   char buffer[kBufferSize] = {0};
 
   // Send the message to the server
@@ -61,6 +63,9 @@ void send_and_receive_message(int sock, const std::string &message) {
 }
 
 // #Question - what can be improved in this function?
+//
+// #Answer - we don't need to initialize message with a string 
+// that's never going to be used.
 std::string read_args(int argc, char *argv[]) {
   std::string message = "Hello from client";
   if (argc == 1) {
