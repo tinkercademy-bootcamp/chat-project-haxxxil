@@ -101,6 +101,7 @@ formatting.".
 - In debug mode, how do you add a watch?
   - Once the debug mode is on, there is an option on the left sidebar to add an expression to watch which I can use.
 - In debug mode, how do you add a breakpoint?
+  - Clicking on the margin next to the line number toggles a breakpoint on that line.
 - In debug mode, how do you step through code?
 
 ### Memory Management and Debug Mode in Your IDE
