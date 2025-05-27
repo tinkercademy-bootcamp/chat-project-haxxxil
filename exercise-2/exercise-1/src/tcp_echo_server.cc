@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 #include <netinet/in.h>
 #include <sys/socket.h>
@@ -10,9 +11,18 @@ int create_socket()
   // Creating socket file descriptor
   if ((my_sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
     std::cerr << "Socket creation erron\n";
-    return -1;
+    exit(EXIT_FAILURE);
   }
   return my_sock;
+}
+
+void set_socket_opts(int sockfd, int opt)
+{
+  if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt,
+                 sizeof(opt))) {
+    std::cerr << "setsockopt error\n";
+    exit(EXIT_FAILURE);
+  }
 }
 
 int main() {
@@ -21,14 +31,10 @@ int main() {
   socklen_t addrlen = sizeof(address);
   const int kBufferSize = 1024;
   char buffer[kBufferSize] = {0};
-  int opt = 1;
+  // int opt = 1;
   int my_sock = create_socket();
   // Attaching socket to port
-  if (setsockopt(my_sock, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt,
-                 sizeof(opt))) {
-    std::cerr << "setsockopt error\n";
-    return -1;
-  }
+  set_socket_opts(my_sock, 1);
   address.sin_family = AF_INET;
   address.sin_addr.s_addr = INADDR_ANY;
   address.sin_port = htons(kPort);
