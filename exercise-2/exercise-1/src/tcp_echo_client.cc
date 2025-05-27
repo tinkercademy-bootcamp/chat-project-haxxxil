@@ -30,6 +30,15 @@ sockaddr_in get_server_addr(std::string serverAddr, int serverPort)
   return address;
 }
 
+void connect_server(int sockfd, struct sockaddr * addr, socklen_t addrlen)
+{
+  // Connect to the server
+  if (connect(sockfd, (sockaddr *)addr, addrlen) < 0) {
+    std::cerr << "Connection Failed\n";
+    exit(EXIT_FAILURE);
+  }
+}
+
 int main() {
   // #Question - are these the same type?
   std::string message = "Hello from client";
@@ -39,11 +48,7 @@ int main() {
   char buffer[kBufferSize] = {0};
   int my_sock = create_socket();
   sockaddr_in address = get_server_addr(kServerAddress, kPort);
-  // Connect to the server
-  if (connect(my_sock, (sockaddr *)&address, sizeof(address)) < 0) {
-    std::cerr << "Connection Failed\n";
-    return -1;
-  }
+  connect_server(my_sock, (sockaddr *)&address, sizeof(address));
   // Send message
   send(my_sock, message.c_str(), message.size(), 0);
   std::cout << "Sent: " << message << "\n";
