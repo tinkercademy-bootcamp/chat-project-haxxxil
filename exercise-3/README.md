@@ -8,6 +8,7 @@
 - A new function `check_error()` has been created and `create_socket()` from 
   exercise-2 has been refactored to make use of it
 - What are the benefits of writing code in this way?
+  - It reduces code size and makes code more readable. It also abstracts error-checking away from anyone reading the surrounding code, and the same code gets used multiple times.
 - Are there any costs to writing code like this?
 - Apply `check_error` to all the code in `src/`
 
