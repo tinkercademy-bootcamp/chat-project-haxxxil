@@ -108,4 +108,5 @@ formatting.".
 ### Memory Management and Debug Mode in Your IDE
 
 - How do you see the memory layout of a `std::string` from your IDE debug mode?
+  - Disabling pretty print lets me see members of `std::string` in VS Code. Unfortunately the only method I have to see addresses of std::string right now is to use GDB commands to print sizes and addresses of members.
 - How do you see the memory layout of a struct from your IDE debug mode?
