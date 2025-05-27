@@ -6,6 +6,17 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+int create_socket()
+{
+  // Creating socket file descriptor
+  int my_sock = socket(AF_INET, SOCK_STREAM, 0);
+  if (my_sock < 0) {
+    std::cerr << "Socket creation erron\n";
+    exit(EXIT_FAILURE);
+  }
+  return my_sock;
+}
+
 int main() {
   // #Question - are these the same type?
   std::string message = "Hello from client";
@@ -14,12 +25,7 @@ int main() {
   sockaddr_in address;
   const int kBufferSize = 1024;
   char buffer[kBufferSize] = {0};
-  // Creating socket file descriptor
-  int my_sock = socket(AF_INET, SOCK_STREAM, 0);
-  if (my_sock < 0) {
-    std::cerr << "Socket creation erron\n";
-    return -1;
-  }
+  int my_sock = create_socket();
   address.sin_family = AF_INET;
   address.sin_port = htons(kPort);
   // Convert IPv4 and IPv6 addresses from text to binary form
