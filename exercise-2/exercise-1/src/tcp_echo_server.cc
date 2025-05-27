@@ -47,8 +47,32 @@ void listen_on_socket(int sockfd)
   }
 }
 
-void accept_on_socket()
+void read_and_send(int sockfd, char * buffer, int kBufferSize)
 {
+  // Wait for read
+    ssize_t read_size = read(sockfd, buffer, kBufferSize);
+    std::cout << "Received: " << buffer << "\n";
+    // Send reply
+    send(sockfd, buffer, read_size, 0);
+    std::cout << "Echo message sent" << "\n";
+}
+
+void accept_on_socket(int sockfd, char * buffer, int kBufferSize)
+{
+  // Accept incoming connection
+  sockaddr_in address;
+  socklen_t addrlen = sizeof(address);
+  int new_sock;
+  while (true) {
+    new_sock = accept(sockfd, (struct sockaddr *)&address, &addrlen);
+    if (new_sock < 0) {
+      std::cerr << "accept error\n";
+      exit(EXIT_FAILURE);
+    }
+    read_and_send(new_sock, buffer, kBufferSize);
+    // Close the socket
+    close(new_sock);
+  }
   
 }
 
@@ -64,25 +88,7 @@ int main() {
   // Start listening for incoming connections
   listen_on_socket(my_sock);
   std::cout << "Server listening on port " << kPort << "\n";
-  // Accept incoming connection
-  sockaddr_in address;
-  socklen_t addrlen = sizeof(address);
-  int new_sock;
-  while (true) {
-    new_sock = accept(my_sock, (struct sockaddr *)&address, &addrlen);
-    if (new_sock < 0) {
-      std::cerr << "accept error\n";
-      return -1;
-    }
-    // Wait for read
-    ssize_t read_size = read(new_sock, buffer, kBufferSize);
-    std::cout << "Received: " << buffer << "\n";
-    // Send reply
-    send(new_sock, buffer, read_size, 0);
-    std::cout << "Echo message sent" << "\n";
-  }
-  // Close the socket
-  close(new_sock);
+  accept_on_socket(my_sock, buffer, kBufferSize);
   close(my_sock);
   return 0;
 }
