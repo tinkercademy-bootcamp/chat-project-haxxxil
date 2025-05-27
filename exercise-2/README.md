@@ -72,8 +72,13 @@ formatting.".
 ## Thinking About Performance
 
 - Does writing code this way have any impact on performance?
+  - Yes. Extra function calls may add overhead. Also now we have to pass parameters through those function calls and even create new objects multiple times in these function calls (for e.g. buffer in server) so there can be an impact on performance.
 - What do we mean when we say performance?
+  - Performance here probably refers to how much time the program takes to run (how efficient it is) and maybe in some cases also refers to how much memory it needs.
 - How do we measure performance in a program?
+  - We can measure performance in a program by:
+    - Just inserting timing code manually (e.g. using `std::chrono`)
+    - Using benchmarking tools (Google Benchmark, perf, gprof etc.)
 
 ## Play with Git
 
