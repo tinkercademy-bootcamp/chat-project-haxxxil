@@ -4,19 +4,25 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+int create_socket()
+{
+  int my_sock;
+  // Creating socket file descriptor
+  if ((my_sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+    std::cerr << "Socket creation erron\n";
+    return -1;
+  }
+  return my_sock;
+}
+
 int main() {
   const int kPort = 8080;
   sockaddr_in address;
   socklen_t addrlen = sizeof(address);
   const int kBufferSize = 1024;
   char buffer[kBufferSize] = {0};
-  int my_sock;
   int opt = 1;
-  // Creating socket file descriptor
-  if ((my_sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-    std::cerr << "Socket creation erron\n";
-    return -1;
-  }
+  int my_sock = create_socket();
   // Attaching socket to port
   if (setsockopt(my_sock, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt,
                  sizeof(opt))) {
