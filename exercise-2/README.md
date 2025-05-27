@@ -99,6 +99,7 @@ formatting.".
 - How do you enable debug mode in your IDE?
   - In VS Code there is a Start Debugging option and a configuration file for build and debug options which I can use to start debugger.
 - In debug mode, how do you add a watch?
+  - Once the debug mode is on, there is an option on the left sidebar to add an expression to watch which I can use.
 - In debug mode, how do you add a breakpoint?
 - In debug mode, how do you step through code?
 
