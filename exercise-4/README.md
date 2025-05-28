@@ -7,6 +7,7 @@
 - Move code that can be shared between `tcp_echo_server.cc` and 
   `tcp_echo_client.cc` to separate `.h` and `.cc` files
 - How would you compile from the command line?
+  - For each output file (server, and client), I will call `g++` with the corresponding source file and `utils.cc` together.  
 - How would you compile using make?
 - How would you compile using VS Code?
 
