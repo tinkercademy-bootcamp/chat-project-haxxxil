@@ -6,22 +6,25 @@
 
 const int kBufferSize = 1024;
 
-int create_socket() {
-  int my_sock;
-  if ((my_sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-    std::cerr << "Socket creation error\n";
+void check_error(bool test, std::string error_message) {
+  if (test) {
+    std::cerr << error_message << "\n";
     exit(EXIT_FAILURE);
   }
+}
+
+int create_socket() {
+  int my_sock;
+  my_sock = socket(AF_INET, SOCK_STREAM, 0);
+  check_error(my_sock<0, "Socket creation error\n");
   return my_sock;
 }
 
 bool set_socket_options(int sock, int opt) {
-  if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt,
-                 sizeof(opt)) < 0) {
-    std::cerr << "setsockopt() error\n";
-    close(sock);
-    exit(EXIT_FAILURE);
-  }
+  bool test = (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt,
+                 sizeof(opt)) < 0);
+  if(test) close(sock);
+  check_error(test, "setsockopt() error\n");
   return true;
 }
 
@@ -34,19 +37,15 @@ sockaddr_in create_address(int port) {
 }
 
 void bind_address_to_socket(int sock, sockaddr_in &address) {
-  if (bind(sock, (sockaddr *)&address, sizeof(address)) < 0) {
-    std::cerr << "bind failed\n";
-    close(sock);
-    exit(EXIT_FAILURE);
-  }
+  bool test = (bind(sock, (sockaddr *)&address, sizeof(address)) < 0);
+  if(test) close(sock);
+  check_error(test, "bind failed\n");
 }
 
 void listen_on_socket(int sock) {
-  if (listen(sock, 3) < 0) {
-    std::cerr << "listen failed\n";
-    close(sock);
-    exit(EXIT_FAILURE);
-  }
+  bool test = (listen(sock, 3) < 0);
+  if(test) close(sock);
+  check_error(test, "listen failed\n");
 }
 
 void start_listening_on_socket(int my_socket, sockaddr_in &address) {

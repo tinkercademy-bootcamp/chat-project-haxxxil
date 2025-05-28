@@ -8,7 +8,9 @@
 - A new function `check_error()` has been created and `create_socket()` from 
   exercise-2 has been refactored to make use of it
 - What are the benefits of writing code in this way?
+  - It reduces code size and makes code more readable. It also abstracts error-checking away from anyone reading the surrounding code, and the same code gets used multiple times.
 - Are there any costs to writing code like this?
+  - Yes. Making reusable code makes the logic itself more complex and harder to write, read and debug. Also, if many different functions depend on it, then there will be the cost of ensuring it doesn't break any of them when we change it, and will require much more rigorous testing per change. 
 - Apply `check_error` to all the code in `src/`
 
 ## Introduction to Compiler Explorer
@@ -17,9 +19,12 @@
   `create_socket()` in [Compiler Explorer](https://godbolt.org) - Interactive 
   tool for exploring how C++ code compiles to assembly
 - What is happening here?
+  - The `check_error()` version has much more instructions compared to the older version since there is overhead associated with the function call.
 - Can you think of any different approaches to this problem?
+  - Since the function `check_error()` is small and not very complex, we can actually define macros that expand to the error-checking code. Alternatively, we can use inline functions as well to get less overhead but probably a larger output file.
 - How can you modify your Makefile to generate assembly code instead of
   compiled code?
+  - We can use the `-S` flag in `gcc/g++` to get the assembly output instead of the complete binary file, and make this modification in the Makefile.
 - **Note**: You can save the generated assembly from Compiler Explorer
 - **Bonus**: Can you view assembly code using your IDE?
 - **Bonus**: How do you see the assembly when you step through each line in
@@ -32,23 +37,34 @@
 - Make sure you have `-fsanitize=address` in both your `CXX_FLAGS` and 
   `LD_FLAGS` in your Makefile
 - What do `-fsanitize=address`, `CXX_FLAGS` and `LD_FLAGS` mean?
+  - `-fsanitize=address` enables AddressSanitizer which changes the compiled code to include checks for common memory errors. This helps in debugging memory related errors faster.
+  - `CXX_FLAGS` refer to the compiler flags we want in our compilation command.
+  - `LD_FLAGS` refer to the linker flags.
 - With the new tool of the Compiler Explorer, and keeping in mind what you 
   have learned about how to use debug mode
 - What happens when you look at a `std::string` using the above methods?
+  - With compiler explorer, I can see the string constructors and destructors being called. The debugger shows the members of `std::string` and also that its an alias for `std::basic_string<char>`.
 - Where is the text in your `std::string`?
+  - The text is stored in the buffer pointed by `std::string::_M_dataplus::_M_p`.
 - What is `std::optional`?
+  - `std::optional` is a type that allows you to store either a value of some type (which we can define) inside it, or it can be empty. 
 - How do you find out the memory layout of a `std::optional`?
+  - Using the same methods as in exercise-2, we can find the memory layout of `std::optional`.
 - Read https://en.cppreference.com/w/cpp/memory#Smart_pointers - Guide to 
   modern C++ memory management using smart pointers
 - Which pointer types are the most important to know about?
+  - `unique_ptr` and `shared_ptr` are the most important to know about since they can keep track of when a pointer is in scope and handle the referred object accordingly.
 - Which smart pointer should you use by default if you can?
+  - We should use `unique_ptr` by default, since in that case only one pointer can refer to an object. This is very helpful in preventing and dangling pointers, and is safer and more lightweight than using `shared_ptr` if shared access is not necessarily required.
 - Does changing your optimization level in `CXXFLAGS` from `-O0` to `-O3` have
   any impact on the answers to any of the above questions?
+  - With O3, I see some of the types optimized out in the examples I try out, and some variables which I initialized in the code aren't even visible.
 
 ## More Thinking About Performance
 
 - After your experiments with Compiler Explorer, do you have any updates for
   your answers in exercise-2?
+  - Function call overhead is an issue with extremely modular code when high performance is required. We should try to get as good of a balance between optimizations and readability/maintainability to improve overall development.
 
 ### Bonus: Do Not Watch Now 
 
