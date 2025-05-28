@@ -37,11 +37,9 @@ sockaddr_in create_address(int port) {
 }
 
 void bind_address_to_socket(int sock, sockaddr_in &address) {
-  if (bind(sock, (sockaddr *)&address, sizeof(address)) < 0) {
-    std::cerr << "bind failed\n";
-    close(sock);
-    exit(EXIT_FAILURE);
-  }
+  bool test = (bind(sock, (sockaddr *)&address, sizeof(address)) < 0);
+  if(test) close(sock);
+  check_error(test, "bind failed\n");
 }
 
 void listen_on_socket(int sock) {
