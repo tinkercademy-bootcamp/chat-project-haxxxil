@@ -12,6 +12,12 @@
 
 - Here is one way to separate out the code into multiple files
 - Is this the best way to do it? 
+  - This seems like a nice way to do it but some inconsistencies annoyed me.
+    - Why does server code have its own namespace but not client?
+    - In fact even the code in `net/` has its own namespace.
+    - Code in client uses the `using namespace` declaration however in the server the functions use `namespace ttc = tt::chat`.
+  - Making a `chat` namespace doesn't seem useful when the chat is the whole program, but would be useful if it's part of a larger project.
+  - For larger projects namespaces would be useful for grouping related code but in this case classes might be more useful, especially since in the case of larger programs we now have the option to have multiple instances of clients and sockets.
 - What are the advantages and disadvantages?
 
 ## Introduction to Namespace
