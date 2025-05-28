@@ -44,7 +44,8 @@
   have learned about how to use debug mode
 - What happens when you look at a `std::string` using the above methods?
   - With compiler explorer, I can see the string constructors and destructors being called. The debugger shows the members of `std::string` and also that its an alias for `std::basic_string<char>`.
-- Where is the text in your `std::string`?`.
+- Where is the text in your `std::string`?
+  - The text is stored in the buffer pointed by `std::string::_M_dataplus::_M_p`.
 - What is `std::optional`?
 - How do you find out the memory layout of a `std::optional`?
 - Read https://en.cppreference.com/w/cpp/memory#Smart_pointers - Guide to 
