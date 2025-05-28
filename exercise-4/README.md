@@ -11,6 +11,7 @@
 - How would you compile using make?
   - With Makefile, I can add a new variable `UTILS_SRC` for this and any other files that both client and server may share and add this variable in the compilation commands.
 - How would you compile using VS Code?
+  - In VS Code we can either use an extension or configure `tasks.json` to compile such programs.
 
 ### Compiling vs Linking
 
