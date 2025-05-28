@@ -49,6 +49,7 @@
 - What is `std::optional`?
   - `std::optional` is a type that allows you to store either a value of some type (which we can define) inside it, or it can be empty. 
 - How do you find out the memory layout of a `std::optional`?
+  - Using the same methods as in exercise-2, we can find the memory layout of `std::optional`.
 - Read https://en.cppreference.com/w/cpp/memory#Smart_pointers - Guide to 
   modern C++ memory management using smart pointers
 - Which pointer types are the most important to know about?
