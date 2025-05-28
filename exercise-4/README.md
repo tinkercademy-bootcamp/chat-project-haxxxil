@@ -36,3 +36,4 @@ fundamentals with practical examples and common patterns.
 - Is there a difference in compilation time between the two?
   - For a complete build, having many small files can be slower because headers may be included multiple times and linking may also take longer. However, with incremental builds, we will have to build only a small part and then link it which may be faster will smaller files than with larger files.
 - How can you assess performance other than compilation speed?
+  - We can benchmark different parts of the code and compare execution time, and see how writing programs one way over the other affects performance. Additionally, we may want to look at the size of the final executable obtained, how much memory the program uses etc.
