@@ -26,6 +26,8 @@
 
 - There are different ways namespace is being used in this exercise
 - Which way is better? What are the advantages and disadvantages?
+  - While `using namespace tt::chat` is convenient when writing code, it kind of goes over the point of namespaces. Multiple `using` statements might lead to naming conflicts, and it makes it unclear which names come from that namespace.
+  - `namespace ttc = tt::chat` leads to a bit more typing but anyone reading the code can easily look up any `ttc` to find out what it means, and this is a better way to shorten code than the `using` declaration.
 
 ## Abstracting Code into Classes
 
