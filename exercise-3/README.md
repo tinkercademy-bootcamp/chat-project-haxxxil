@@ -10,6 +10,7 @@
 - What are the benefits of writing code in this way?
   - It reduces code size and makes code more readable. It also abstracts error-checking away from anyone reading the surrounding code, and the same code gets used multiple times.
 - Are there any costs to writing code like this?
+  - Yes. Making reusable code makes the logic itself more complex and harder to write, read and debug. Also, if many different functions depend on it, then there will be the cost of ensuring it doesn't break any of them when we change it, and will require much more rigorous testing per change. 
 - Apply `check_error` to all the code in `src/`
 
 ## Introduction to Compiler Explorer
