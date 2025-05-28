@@ -1,7 +1,7 @@
 # Compiler and flags
 CXX := g++
-CXXFLAGS := -g
-LDFLAGS :=
+CXXFLAGS := -g -fsanitize=address
+LDFLAGS := -fsanitize=address
 
 # Source files
 SERVER_SRC := src/tcp_echo_server.cc
