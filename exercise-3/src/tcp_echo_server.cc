@@ -43,11 +43,9 @@ void bind_address_to_socket(int sock, sockaddr_in &address) {
 }
 
 void listen_on_socket(int sock) {
-  if (listen(sock, 3) < 0) {
-    std::cerr << "listen failed\n";
-    close(sock);
-    exit(EXIT_FAILURE);
-  }
+  bool test = (listen(sock, 3) < 0);
+  if(test) close(sock);
+  check_error(test, "listen failed\n");
 }
 
 void start_listening_on_socket(int my_socket, sockaddr_in &address) {
