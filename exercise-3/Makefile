@@ -1,6 +1,6 @@
 # Compiler and flags
 CXX := g++
-CXXFLAGS := -g -fsanitize=address
+CXXFLAGS := -g -fsanitize=address -O3
 LDFLAGS := -fsanitize=address
 
 # Source files
