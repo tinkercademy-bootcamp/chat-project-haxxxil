@@ -9,6 +9,7 @@
 - How would you compile from the command line?
   - For each output file (server, and client), I will call `g++` with the corresponding source file and `utils.cc` together.  
 - How would you compile using make?
+  - With Makefile, I can add a new variable `UTILS_SRC` for this and any other files that both client and server may share and add this variable in the compilation commands.
 - How would you compile using VS Code?
 
 ### Compiling vs Linking
