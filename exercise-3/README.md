@@ -24,6 +24,7 @@
   - Since the function `check_error()` is small and not very complex, we can actually define macros that expand to the error-checking code. Alternatively, we can use inline functions as well to get less overhead but probably a larger output file.
 - How can you modify your Makefile to generate assembly code instead of
   compiled code?
+  - We can use the `-S` flag in `gcc/g++` to get the assembly output instead of the complete binary file, and make this modification in the Makefile.
 - **Note**: You can save the generated assembly from Compiler Explorer
 - **Bonus**: Can you view assembly code using your IDE?
 - **Bonus**: How do you see the assembly when you step through each line in
