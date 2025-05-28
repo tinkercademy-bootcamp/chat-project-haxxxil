@@ -15,18 +15,16 @@ void check_error(bool test, std::string error_message) {
 
 int create_socket() {
   int my_sock;
-  my_sock = socket(AF_INET, SOCK_STREAM, 0)
+  my_sock = socket(AF_INET, SOCK_STREAM, 0);
   check_error(my_sock<0, "Socket creation error\n");
   return my_sock;
 }
 
 bool set_socket_options(int sock, int opt) {
-  if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt,
-                 sizeof(opt)) < 0) {
-    std::cerr << "setsockopt() error\n";
-    close(sock);
-    exit(EXIT_FAILURE);
-  }
+  bool test = (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt,
+                 sizeof(opt)) < 0);
+  if(test) close(sock);
+  check_error(test, "setsockopt() error\n");
   return true;
 }
 
