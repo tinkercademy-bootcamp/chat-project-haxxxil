@@ -34,4 +34,5 @@ fundamentals with practical examples and common patterns.
   a few large files across fewer directories?
   - Many small files spread across many directories would be more helpful during development since it would make it easier for different people to work on different things and it would make testing and debugging easier and the code will be better organized this way.
 - Is there a difference in compilation time between the two?
+  - For a complete build, having many small files can be slower because headers may be included multiple times and linking may also take longer. However, with incremental builds, we will have to build only a small part and then link it which may be faster will smaller files than with larger files.
 - How can you assess performance other than compilation speed?
