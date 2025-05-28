@@ -19,6 +19,8 @@
   - Making a `chat` namespace doesn't seem useful when the chat is the whole program, but would be useful if it's part of a larger project.
   - For larger projects namespaces would be useful for grouping related code but in this case classes might be more useful, especially since in the case of larger programs we now have the option to have multiple instances of clients and sockets.
 - What are the advantages and disadvantages?
+  - Namespaces are useful in large projects to organize code and prevent naming conflicts. If someone is reading through the code, namespaces can be helpful in communicating what each object or function is for.
+  - Namespaces can be bad because they increase code size, and in many places classes might be more useful. Also, using namespaces too frequently or nesting many namespaces will only make it harder to read and debug code.
 
 ## Introduction to Namespace
 
