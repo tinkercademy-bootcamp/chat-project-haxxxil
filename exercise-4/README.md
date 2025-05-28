@@ -19,6 +19,7 @@
   - Compiling involves turning the code in a single file into object files, however functions and objects defined in other files or in libraries aren't defined in these object files. Once all required object files are available, the linker "links" function calls and references between different files and combines the code into a single executable file.
 - What is the difference between creating an executable and creating a 
   library?
+  - An executable is code that is meant to be executed by itself, whereas a library is just some (often precompiled) useful functionality that can be used by other programs and included in other executables so that we don't need to rewrite code. A library object file may not run by itself but linkers can use its machine code to compile executables.
 - How do you compile a library, and then use that library to compile an
   executable?
 
