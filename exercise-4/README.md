@@ -22,6 +22,7 @@
   - An executable is code that is meant to be executed by itself, whereas a library is just some (often precompiled) useful functionality that can be used by other programs and included in other executables so that we don't need to rewrite code. A library object file may not run by itself but linkers can use its machine code to compile executables.
 - How do you compile a library, and then use that library to compile an
   executable?
+  - We can create a library using the `-c` compiler option (or `-shared` for shared libraries) and then archive the object files to a static library. When we want an executable we can use linker flags like `-I`, `-L` and `-l` to specify the location of the precompiled libraries.
 
 ### Reminder 
 [Quickstart tutorial to make](https://makefiletutorial.com/) - Learn make 
