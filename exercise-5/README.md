@@ -6,6 +6,7 @@
 
 - What's an easy way to identify the changes in source code from one exercise
   to another?
+  - `diff` is a convenient tool for identifying changes between exercises. Other code comparision tools also exist but the GNU `diff` is installed by default so I use it.
     
 ## Using Classes
 
