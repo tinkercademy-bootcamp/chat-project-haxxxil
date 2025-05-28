@@ -58,6 +58,7 @@
   - We should use `unique_ptr` by default, since in that case only one pointer can refer to an object. This is very helpful in preventing and dangling pointers, and is safer and more lightweight than using `shared_ptr` if shared access is not necessarily required.
 - Does changing your optimization level in `CXXFLAGS` from `-O0` to `-O3` have
   any impact on the answers to any of the above questions?
+  - With O3, I see some of the types optimized out in the examples I try out, and some variables which I initialized in the code aren't even visible.
 
 ## More Thinking About Performance
 
