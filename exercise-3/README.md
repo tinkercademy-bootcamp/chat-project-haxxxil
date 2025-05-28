@@ -21,6 +21,7 @@
 - What is happening here?
   - The `check_error()` version has much more instructions compared to the older version since there is overhead associated with the function call.
 - Can you think of any different approaches to this problem?
+  - Since the function `check_error()` is small and not very complex, we can actually define macros that expand to the error-checking code. Alternatively, we can use inline functions as well to get less overhead but probably a larger output file.
 - How can you modify your Makefile to generate assembly code instead of
   compiled code?
 - **Note**: You can save the generated assembly from Compiler Explorer
