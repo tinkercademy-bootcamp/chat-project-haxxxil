@@ -64,6 +64,7 @@
 
 - After your experiments with Compiler Explorer, do you have any updates for
   your answers in exercise-2?
+  - Function call overhead is an issue with extremely modular code when high performance is required. We should try to get as good of a balance between optimizations and readability/maintainability to improve overall development.
 
 ### Bonus: Do Not Watch Now 
 
