@@ -56,6 +56,7 @@
   taste?
   - Sense of taste in programming means having specific preferences about how code should be written and maintained (formatting, naming, code structure etc.) developed through experience. Code can taste because it requires some creativity to write good (or bad) code. Different people have different styles and some can be more generally preferable than others, and this is essentially code taste. 
 - Is there an analogue for every sense?
+  - I think we can define an analogue for every sense.
 - What other code senses can you think of?
 - How many senses do humans have?
 - When would you want to see something before you touch it?
