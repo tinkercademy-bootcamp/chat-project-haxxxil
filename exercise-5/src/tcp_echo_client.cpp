@@ -8,40 +8,70 @@
 #include <unistd.h>
 #include "utils.h"
 
-sockaddr_in create_address(const std::string &server_ip, int port) {
-  sockaddr_in address;
-  address.sin_family = AF_INET;
-  address.sin_port = htons(port);
+class Client
+{
+  public:
+    Client()
+    {
+      clientSocket = create_socket();
+    }
 
-  // Convert the server IP address to a binary format
-  auto err_code = inet_pton(AF_INET, server_ip.c_str(), &address.sin_addr);
-  check_error(err_code <= 0, "Invalid address/ Address not supported.\n");
-  return address;
-}
+    void get_server(const std::string &server_ip, int port)
+    {
+      serverAddress = create_address(server_ip, port);
+      connect_to_server(clientSocket, serverAddress);
+    }
 
-void connect_to_server(int sock, sockaddr_in &server_address) {
-  auto err_code =
-      connect(sock, (sockaddr *)&server_address, sizeof(server_address));
-  check_error(err_code < 0, "Connection Failed.\n");
-}
+    void send_message(const std::string &message)
+    {
+      send_and_receive_message(clientSocket, message);
+    }
 
-void send_and_receive_message(int sock, const std::string &message) {
-  const int kBufferSize = 1024;
-  char recv_buffer[kBufferSize] = {0};
+    ~Client()
+    {
+      close(clientSocket);
+    }
 
-  // Send the message to the server
-  send(sock, message.c_str(), message.size(), 0);
-  std::cout << "Sent: " << message << "\n";
+  private:
+    int clientSocket;
+    sockaddr_in serverAddress;
 
-  // Receive response from the server
-  ssize_t read_size = read(sock, recv_buffer, kBufferSize);
-  check_error(read_size < 0, "Read error.\n");
-  if (read_size > 0) {
-    std::cout << "Received: " << recv_buffer << "\n";
-  } else if (read_size == 0) {
-    std::cout << "Server closed connection.\n";
-  }
-}
+    sockaddr_in create_address(const std::string &server_ip, int port) {
+      // sockaddr_in & address = serverAddress;
+      sockaddr_in address;
+      address.sin_family = AF_INET;
+      address.sin_port = htons(port);
+
+      // Convert the server IP address to a binary format
+      auto err_code = inet_pton(AF_INET, server_ip.c_str(), &address.sin_addr);
+      check_error(err_code <= 0, "Invalid address/ Address not supported.\n");
+      return address;
+    }
+
+    void connect_to_server(int sock, sockaddr_in &server_address) {
+      auto err_code =
+          connect(sock, (sockaddr *)&server_address, sizeof(server_address));
+      check_error(err_code < 0, "Connection Failed.\n");
+    }
+
+    void send_and_receive_message(int sock, const std::string &message) {
+      const int kBufferSize = 1024;
+      char recv_buffer[kBufferSize] = {0};
+
+      // Send the message to the server
+      send(sock, message.c_str(), message.size(), 0);
+      std::cout << "Sent: " << message << "\n";
+
+      // Receive response from the server
+      ssize_t read_size = read(sock, recv_buffer, kBufferSize);
+      check_error(read_size < 0, "Read error.\n");
+      if (read_size > 0) {
+        std::cout << "Received: " << recv_buffer << "\n";
+      } else if (read_size == 0) {
+        std::cout << "Server closed connection.\n";
+      }
+    }
+};
 
 std::string read_args(int argc, char *argv[]) {
   std::string message = "Hello from client";
@@ -61,12 +91,15 @@ int main(int argc, char *argv[]) {
 
   std::string message = read_args(argc, argv);
 
-  int my_socket = create_socket();
-  sockaddr_in server_address = create_address(kServerAddress, kPort);
+  // int my_socket = create_socket();
+  // sockaddr_in server_address = create_address(kServerAddress, kPort);
 
-  connect_to_server(my_socket, server_address);
-  send_and_receive_message(my_socket, message);
-  close(my_socket);
+  // connect_to_server(my_socket, server_address);
+  // send_and_receive_message(my_socket, message);
+  // close(my_socket);
 
+  Client client;
+  client.get_server(kServerAddress, kPort);
+  client.send_message(message);
   return 0;
 }
