@@ -1,10 +1,10 @@
 # Compiler and flags
 CXX := g++
-CXXFLAGS := -g -fsanitize=address -O3
+CXXFLAGS := -g -fsanitize=address -O3 -Isrc -Isrc/classes
 LDFLAGS := -fsanitize=address
 
 # Source files
-SERVER_SRC := src/tcp_echo_server.cpp
+SERVER_SRC := src/tcp_echo_server.cpp src/classes/server.cpp
 CLIENT_SRC := src/tcp_echo_client.cpp
 UTILS_SRC := src/utils.cc
 
