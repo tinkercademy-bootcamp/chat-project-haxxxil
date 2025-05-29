@@ -5,7 +5,7 @@ LDFLAGS := -fsanitize=address
 
 # Source files
 SERVER_SRC := src/tcp_echo_server.cpp src/classes/server.cpp
-CLIENT_SRC := src/tcp_echo_client.cpp
+CLIENT_SRC := src/tcp_echo_client.cpp src/classes/client.cpp
 UTILS_SRC := src/utils.cc
 
 # Output binaries
