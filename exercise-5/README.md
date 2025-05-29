@@ -37,6 +37,7 @@
 - How should you divide the code into files?
   - We should divide code into different files based on what that code does, and group related files in a directory. Using header files is always nice. Classes can have their own files and directories usually. For example, we have the `Client` and `Server` classes in their own files, and a `utils.cc` separately. This gives a really clean look to the main `tcp_echo_client.cpp` and `tcp_echo_server.cpp`.
 - What namespace and directory structure should you use? Why?
+  - A namespace and directory structure that can represent the heirarchies and uses of different components in the software would be nice. For example, bundling the client and server into a `net` directory or namespace would be helpful for anyone going through the project, and in this case we would also separate networking related functionality and other functionality (such as `check_error`). If the chat was just a part of a bigger project, then a `chat` namespace or directory would be helpful.
 
 ## Programming Sense of Taste
 
