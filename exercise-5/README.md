@@ -51,6 +51,7 @@
 
 - Have you ever heard of programmers referring to "code smells"? How can code
   smell?
+  - Yes. Code may smell because of bad coding practices, such as high degree of nesting, huge functions and classes, dead code etc. which might indicate presence of unfound bugs.
 - What does it mean to have a sense of taste in programming? How can code
   taste?
 - Is there an analogue for every sense?
