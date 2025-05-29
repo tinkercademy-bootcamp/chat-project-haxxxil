@@ -45,6 +45,7 @@
   structure? 
   - I think a particular choice of namespace and directory is good if it makes the code easier to read and navigate through, and gives me a good idea of what each name means when I am reading the code, but there shouldn't be too much nesting since that will make it very tedious to read and code.
 - How do you judge what makes a good naming convention or programming style?
+  - It would be good if the name makes it clear and unambiguous what it refers to and why its there without being too long. For programming style, readability and consistency are important (only one style throughout the project).
 
 ## "Senses" in Programming
 
