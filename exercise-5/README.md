@@ -64,4 +64,5 @@
 - How many senses do humans have?
   - Humans have 5 senses: smell, sight, taste, hearing and touch.
 - When would you want to see something before you touch it?
+  - If you are trying to change some code, it would be better to read and understand the code before trying to change it.
 - When would you want to touch something before you see it?
