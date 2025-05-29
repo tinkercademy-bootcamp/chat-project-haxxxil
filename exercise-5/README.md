@@ -35,6 +35,7 @@
 - **Note**: You don't have to use the code in this exercise as a starting point
 - You can use the code you wrote from previous exercises instead
 - How should you divide the code into files?
+  - We should divide code into different files based on what that code does, and group related files in a directory. Using header files is always nice. Classes can have their own files and directories usually. For example, we have the `Client` and `Server` classes in their own files, and a `utils.cc` separately. This gives a really clean look to the main `tcp_echo_client.cpp` and `tcp_echo_server.cpp`.
 - What namespace and directory structure should you use? Why?
 
 ## Programming Sense of Taste
