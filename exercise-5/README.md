@@ -62,5 +62,6 @@
   - Sight: this can refer to how easy it is to understand some code by just reading it based on cleanliness, structure etc.
   - Touch: This can refer to how easy it is to use, modify or write to some code.
 - How many senses do humans have?
+  - Humans have 5 senses: smell, sight, taste, hearing and touch.
 - When would you want to see something before you touch it?
 - When would you want to touch something before you see it?
