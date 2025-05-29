@@ -54,6 +54,7 @@
   - Yes. Code may smell because of bad coding practices, such as high degree of nesting, huge functions and classes, dead code etc. which might indicate presence of unfound bugs.
 - What does it mean to have a sense of taste in programming? How can code
   taste?
+  - Sense of taste in programming means having specific preferences about how code should be written and maintained (formatting, naming, code structure etc.) developed through experience. Code can taste because it requires some creativity to write good (or bad) code. Different people have different styles and some can be more generally preferable than others, and this is essentially code taste. 
 - Is there an analogue for every sense?
 - What other code senses can you think of?
 - How many senses do humans have?
