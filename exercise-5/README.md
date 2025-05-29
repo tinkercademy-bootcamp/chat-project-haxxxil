@@ -58,6 +58,9 @@
 - Is there an analogue for every sense?
   - I think we can define an analogue for every sense.
 - What other code senses can you think of?
+  - Sound: this can refer to whether the logic in a code is good and easy to follow.
+  - Sight: this can refer to how easy it is to understand some code by just reading it based on cleanliness, structure etc.
+  - Touch: This can refer to how easy it is to use, modify or write to some code.
 - How many senses do humans have?
 - When would you want to see something before you touch it?
 - When would you want to touch something before you see it?
