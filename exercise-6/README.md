@@ -18,6 +18,9 @@
     - I can clone the repo, compile the library and then include the precompiled library into my executable.
     - I can use a package manager (`e.g. apt`) to install the library onto my system and it will be included then.
 - What are the tradeoffs in the different ways?
+  - Header-only includes will be easy and portable but will also increase compile times are wouldn't be practical for very large projects.
+  - Building the library on my own would give faster compile times, but handling installation and builds of many different libraries and linking them would also be tedious.
+  - With package managers, managing libraries becomes easier but many libraries may not support this, and library developers would have to put in the extra effort to make their libraries available on as many package managers as possible.
 - Why are there so many different ways to do it?
   
 ## Static Linking vs Dynamic Linking
