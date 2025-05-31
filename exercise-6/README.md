@@ -32,6 +32,8 @@
   - Static libraries ensures that releases always have the correct versions of libraries and users don't have to download it themselves. However, static libraries result in longer compile times and larger executables, and if many different executables use the same library then a lot of memory/disk space would be wasted.
   - Many executables can share a single copy of a dynamic library. Additionally, they can be updated without affecting the executables that rely on it. However, users may have to install some dependencies themselves and also dynamic linking may be slower than static linking.
 - How do you enable static linking or dynamic linking in your makefile?
+  - We can include library name in the compilation command whenever we need it for static libraries (or use `-l`).
+  For dynamic libraries we need `-fPIC` flag, along with `-l`, `-L` or `-rpath` to tell where the library is located to compile (we can create necessary variables, flags and dependencies for each library) and also update `LD_LIBRARY_PATH` to run.
 
 ## Git Clone and Building from Source
 
