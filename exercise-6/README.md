@@ -22,6 +22,7 @@
   - Building the library on my own would give faster compile times, but handling installation and builds of many different libraries and linking them would also be tedious.
   - With package managers, managing libraries becomes easier but many libraries may not support this, and library developers would have to put in the extra effort to make their libraries available on as many package managers as possible.
 - Why are there so many different ways to do it?
+  - C++ doesn't specify any standards related to adding external libraries, and many projects have different needs and developers have different preferences. As a result, there are many different build systems and package managers, and they may all work differently and be incompatible.
   
 ## Static Linking vs Dynamic Linking
 
