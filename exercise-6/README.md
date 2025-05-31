@@ -13,6 +13,10 @@
 - What do you need to change in your makefile to use this library?
   - With makefile, we can add variables like `INC_DIR` and use flags like `-I` or `-l`
 - How many different ways can this library be added into your project?
+  - There are multiple different ways:
+    - I can clone the library repo and directly include the relevant header.
+    - I can clone the repo, compile the library and then include the precompiled library into my executable.
+    - I can use a package manager (`e.g. apt`) to install the library onto my system and it will be included then.
 - What are the tradeoffs in the different ways?
 - Why are there so many different ways to do it?
   
