@@ -11,6 +11,7 @@
 - How do you compile this file using the `g++` CLI?
   - I can install `include/spdlog` from the GitHub repo and use the `-I` flag to include the directory in which `spdlog` is located.
 - What do you need to change in your makefile to use this library?
+  - With makefile, we can add variables like `INC_DIR` and use flags like `-I` or `-l`
 - How many different ways can this library be added into your project?
 - What are the tradeoffs in the different ways?
 - Why are there so many different ways to do it?
