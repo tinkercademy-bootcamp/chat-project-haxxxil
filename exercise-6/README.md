@@ -74,3 +74,4 @@
     - buckaroo
     - spack
 - Which are the most notable ways to manage the compilation of C++ projects?
+  - The most notable ways to manage compilation of C++ project is to use a popular build system (CMake, Bazel, Meson etc.) along with a package manager that has good compatibility with the build system. 
