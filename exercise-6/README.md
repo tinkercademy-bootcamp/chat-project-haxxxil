@@ -67,4 +67,10 @@
 - Why are there so many C++ package managers?
   - C++ doesn't have a default package manager, which led to different developers trying to create their own package manager. There isn't any package mangager which is used universally, and different projects' and developers' needs, preferences and environments may lead them to choose one over the others.
 - Which one is the best one?
+  - There seems to be no consensus on which one is the best, but from what I searched, the most recommended ones are:
+    - conan
+    - vcpkg
+    - Hunter
+    - buckaroo
+    - spack
 - Which are the most notable ways to manage the compilation of C++ projects?
