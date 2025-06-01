@@ -57,6 +57,10 @@
   ```
   - We can also use the `-L` to specify a directory to search in for libraries.
 - How do you find out?
+  - I can find this using the following commands:
+    - `g++ -E -x c++ - -v < /dev/null`
+    - `g++ -print-search-dirs`
+    - `ld --verbose | grep SEARCH_DIR`
 
 ## C++ Package Managers
 
