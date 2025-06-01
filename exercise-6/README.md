@@ -38,6 +38,24 @@
 ## Git Clone and Building from Source
 
 - Where is `g++` looking for the include files and library files?
+  - `g++` looks for header files in some of the `include` directories in `/usr`, in my case I find this:
+  ```
+  #include <...> search starts here:
+  /usr/include/c++/14
+  /usr/include/aarch64-linux-gnu/c++/14
+  /usr/include/c++/14/backward
+  /usr/lib/gcc/aarch64-linux-gnu/14/include
+  /usr/local/include
+  /usr/include/aarch64-linux-gnu
+  /usr/include
+  End of search list.
+  ``` 
+  - It also looks for them in the directory of the source file and we can also tell `g++` the include directory with `-I`.
+  - For libraries, the linker searches in some of the `/usr/lib` directories, in my case:
+  ```
+  SEARCH_DIR("=/usr/local/lib/aarch64-linux-gnu"); SEARCH_DIR("=/lib/aarch64-linux-gnu"); SEARCH_DIR("=/usr/lib/aarch64-linux-gnu"); SEARCH_DIR("=/usr/local/lib"); SEARCH_DIR("=/lib"); SEARCH_DIR("=/usr/lib"); SEARCH_DIR("=/usr/aarch64-linux-gnu/lib");
+  ```
+  - We can also use the `-L` to specify a directory to search in for libraries.
 - How do you find out?
 
 ## C++ Package Managers
