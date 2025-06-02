@@ -9,10 +9,11 @@ tt::chat::client::Client::Client(int port,
   connect_to_server(socket_, address);
 }
 
-std::string tt::chat::client::Client::send_and_receive_message(
-    const std::string &message) {
+std::string tt::chat::client::Client::send_and_receive_message() {
   using namespace tt::chat;
   char recv_buffer[kBufferSize] = {0};
+
+  std::string message = "Hello World!";
 
   // Send the message to the server
   send(socket_, message.c_str(), message.size(), 0);

@@ -25,14 +25,12 @@ std::string read_args(int argc, char *argv[]) {
 }
 } // namespace
 
-int main(int argc, char *argv[]) {
+int main() {
   const std::string kServerAddress = "127.0.0.1";
-
-  std::string message = read_args(argc, argv);
 
   tt::chat::client::Client client{kPort, kServerAddress};
 
-  std::string response = client.send_and_receive_message(message);
+  std::string response = client.send_and_receive_message();
 
   return 0;
 }
