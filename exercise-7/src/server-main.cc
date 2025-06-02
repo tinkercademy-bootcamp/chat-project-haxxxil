@@ -4,9 +4,9 @@
 #include <unistd.h>
 
 #include "server/chat-server.h"
+#include "net/misc.h"
 
 int main() {
-  const int kPort = 8080;
 
   tt::chat::server::Server server(kPort);
   server.handle_connections();
