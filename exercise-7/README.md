@@ -13,6 +13,7 @@
 - Are the above code repos examples of good code or bad code?
   - While they are good and educative examples for epoll, I would consider the onestraw repo as bad code and joakimthun as good code.
 - How do you decide what is good code or bad code?
+  - The onestraw repo had barely any comments and was confusing to read and understand ,while the joakimthun repo had a some commments to better explain the code.
 
 ## Creating a Chat Client/Server Using EPOLL
 
