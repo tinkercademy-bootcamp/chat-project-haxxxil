@@ -9,6 +9,7 @@
 - https://github.com/joakimthun/io-uring-echo-server
 - https://man7.org/linux/man-pages/man7/epoll.7.html
 - What other resources can you find about epoll?
+  - A quick google search shows many tutorials and examples of building 1-to-many networking programmes using epoll.
 - Are the above code repos examples of good code or bad code?
 - How do you decide what is good code or bad code?
 
