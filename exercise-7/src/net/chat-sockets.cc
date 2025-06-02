@@ -11,14 +11,14 @@ void tt::chat::net::set_nonblocking_socket(int sockfd)
   int current_flags = fcntl(sockfd, F_GETFL);
   if(current_flags==-1)
   {
-    close(sockfd);
+    // close(sockfd);
     check_error(false, "Couldn't set non-blocking socket.");
   }
 
   int fcntl_return = fcntl(sockfd, F_SETFL, (current_flags | O_NONBLOCK));
   if(fcntl_return == -1)
   {
-    close(sockfd);
+    // close(sockfd);
     check_error(false, "Couldn't set non-blocking socket.");
   }
 }

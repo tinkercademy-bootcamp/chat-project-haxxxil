@@ -17,13 +17,20 @@ tt::chat::server::Server::Server(int port)
   auto err_code = bind(socket_, (sockaddr *)&address_, sizeof(address_));
   check_error(err_code < 0, "bind failed\n");
 
+  net::set_nonblocking_socket(socket_);
+
+  epoll_ = create_epoll();
+
   err_code = listen(socket_, 3);
   check_error(err_code < 0, "listen failed\n");
 
   std::cout << "Server listening on port " << port << "\n";
 }
 
-tt::chat::server::Server::~Server() { close(socket_); }
+tt::chat::server::Server::~Server() { 
+  if(socket_!=tt::chat::server::UNINIT)close(socket_);
+  if(epoll_!=tt::chat::server::UNINIT) close(epoll_); 
+}
 
 void tt::chat::server::Server::handle_connections() {
   socklen_t address_size = sizeof(address_);
@@ -58,4 +65,11 @@ void tt::chat::server::Server::handle_accept(int sock) {
     SPDLOG_ERROR("Read error on client socket {}", socket_);
   }
   close(sock);
+}
+
+int tt::chat::server::Server::create_epoll()
+{
+  int epoll_fd = epoll_create1(0);
+  check_error(epoll_fd<0, "Failed to create epoll.");
+  return epoll_fd;
 }
