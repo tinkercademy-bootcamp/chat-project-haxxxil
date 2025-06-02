@@ -12,6 +12,7 @@
 namespace tt::chat::net {
 
 int create_socket();
+void set_nonblocking_socket(int sockfd);
 
 sockaddr_in create_address(int port);
 
