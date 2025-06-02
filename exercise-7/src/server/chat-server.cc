@@ -1,3 +1,4 @@
+#include <sys/epoll.h>
 #include <unistd.h>
 
 #include "spdlog/spdlog.h"
@@ -24,11 +25,14 @@ tt::chat::server::Server::Server(int port)
   err_code = listen(socket_, 3);
   check_error(err_code < 0, "listen failed\n");
 
+  int reg_val = register_with_epoll(socket_, EPOLLIN | EPOLLET);
+  check_error(reg_val<0, "Failed to use epoll.");
+
   std::cout << "Server listening on port " << port << "\n";
 }
 
 tt::chat::server::Server::~Server() { 
-  if(socket_!=tt::chat::server::UNINIT)close(socket_);
+  if(socket_!=tt::chat::server::UNINIT) close(socket_);
   if(epoll_!=tt::chat::server::UNINIT) close(epoll_); 
 }
 
@@ -72,4 +76,13 @@ int tt::chat::server::Server::create_epoll()
   int epoll_fd = epoll_create1(0);
   check_error(epoll_fd<0, "Failed to create epoll.");
   return epoll_fd;
+}
+
+int tt::chat::server::Server::register_with_epoll(int fd, int opts)
+{
+  epoll_event event{};
+  event.data.fd = fd;
+  event.events = opts;
+
+  return epoll_ctl(epoll_, EPOLL_CTL_ADD, fd, &event);
 }

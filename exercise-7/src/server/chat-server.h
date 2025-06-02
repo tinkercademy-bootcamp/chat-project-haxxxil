@@ -23,6 +23,7 @@ private:
   void handle_accept(int sock);
   static void set_socket_options(int sock, int opt);
   int create_epoll();
+  int register_with_epoll(int fd, int opts);
 };
 } // namespace tt::chat::server
 
