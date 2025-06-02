@@ -11,6 +11,7 @@
 - What other resources can you find about epoll?
   - A quick google search shows many tutorials and examples of building 1-to-many networking programmes using epoll.
 - Are the above code repos examples of good code or bad code?
+  - While they are good and educative examples for epoll, I would consider the onestraw repo as bad code and joakimthun as good code.
 - How do you decide what is good code or bad code?
 
 ## Creating a Chat Client/Server Using EPOLL
