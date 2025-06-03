@@ -9,7 +9,7 @@
 int main() {
 
   tt::chat::server::Server server(kPort);
-  server.handle_connections();
+  server.handle_events();
 
   return 0;
 }

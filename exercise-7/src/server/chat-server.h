@@ -11,7 +11,7 @@ class Server {
 public:
   Server(int port);
   ~Server();
-  void handle_connections();
+  void handle_events();
 
 private:
   int socket_ = UNINIT;
@@ -20,7 +20,7 @@ private:
 
   static constexpr int kBufferSize = 1024;
 
-  void handle_accept(int sock);
+  void handle_accept();
   static void set_socket_options(int sock, int opt);
   int create_epoll();
   int register_with_epoll(int fd, int opts);

@@ -36,13 +36,35 @@ tt::chat::server::Server::~Server() {
   if(epoll_!=tt::chat::server::UNINIT) close(epoll_); 
 }
 
-void tt::chat::server::Server::handle_connections() {
-  socklen_t address_size = sizeof(address_);
+void tt::chat::server::Server::handle_events() {
+  const int MAX_EVENTS = 128;
+  epoll_event events[MAX_EVENTS];
+  const int timeout_ms = 100;
 
-  while (true) {
-    int accepted_socket = accept(socket_, (sockaddr *)&address_, &address_size);
-    tt::chat::check_error(accepted_socket < 0, "Accept error n ");
-    handle_accept(accepted_socket);
+  while(true)
+  {
+    const int num_events = epoll_wait(epoll_, events, MAX_EVENTS, timeout_ms);
+
+    for(int i=0; i<num_events; i++)
+    {
+      const epoll_event& event = events[i];
+
+      if(event.data.fd == socket_)
+      {
+        handle_accept();
+        continue;
+      }
+
+      if(event.events & EPOLLIN)
+      {
+        // check command sent by client and process
+      }
+
+      if(event.events & EPOLLOUT)
+      {
+        // send remaining client data
+      }
+    }
   }
 }
 
@@ -53,22 +75,22 @@ void tt::chat::server::Server::set_socket_options(int sock, int opt) {
   check_error(err_code < 0, "setsockopt() error\n");
 }
 
-void tt::chat::server::Server::handle_accept(int sock) {
+void tt::chat::server::Server::handle_accept() {
   using namespace tt::chat;
 
-  char buffer[kBufferSize] = {0};
-  ssize_t read_size = read(sock, buffer, kBufferSize);
+  // char buffer[kBufferSize] = {0};
+  // ssize_t read_size = read(sock, buffer, kBufferSize);
 
-  if (read_size > 0) {
-    SPDLOG_INFO("Received: {}", buffer);
-    send(sock, buffer, read_size, 0);
-    SPDLOG_INFO("Echo message sent");
-  } else if (read_size == 0) {
-    SPDLOG_INFO("Client disconnected.");
-  } else {
-    SPDLOG_ERROR("Read error on client socket {}", socket_);
-  }
-  close(sock);
+  // if (read_size > 0) {
+  //   SPDLOG_INFO("Received: {}", buffer);
+  //   send(sock, buffer, read_size, 0);
+  //   SPDLOG_INFO("Echo message sent");
+  // } else if (read_size == 0) {
+  //   SPDLOG_INFO("Client disconnected.");
+  // } else {
+  //   SPDLOG_ERROR("Read error on client socket {}", socket_);
+  // }
+  // close(sock);
 }
 
 int tt::chat::server::Server::create_epoll()
