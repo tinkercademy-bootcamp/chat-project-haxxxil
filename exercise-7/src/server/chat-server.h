@@ -3,6 +3,7 @@
 
 #include <netinet/in.h>
 #include <sys/epoll.h>
+#include <errno.h>
 namespace tt::chat::server {
 
 const int UNINIT = -11;

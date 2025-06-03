@@ -1,4 +1,7 @@
+#include <cerrno>
+#include <netinet/in.h>
 #include <sys/epoll.h>
+#include <sys/socket.h>
 #include <unistd.h>
 
 #include "spdlog/spdlog.h"
@@ -77,20 +80,31 @@ void tt::chat::server::Server::set_socket_options(int sock, int opt) {
 
 void tt::chat::server::Server::handle_accept() {
   using namespace tt::chat;
+  while(true)
+  {
+    sockaddr_in in_addr{};
+    socklen_t in_len = sizeof(in_addr);
+    int client_fd = accept4(socket_, (sockaddr*)&in_addr, &in_len, SOCK_NONBLOCK);
 
-  // char buffer[kBufferSize] = {0};
-  // ssize_t read_size = read(sock, buffer, kBufferSize);
-
-  // if (read_size > 0) {
-  //   SPDLOG_INFO("Received: {}", buffer);
-  //   send(sock, buffer, read_size, 0);
-  //   SPDLOG_INFO("Echo message sent");
-  // } else if (read_size == 0) {
-  //   SPDLOG_INFO("Client disconnected.");
-  // } else {
-  //   SPDLOG_ERROR("Read error on client socket {}", socket_);
-  // }
-  // close(sock);
+    if(client_fd==-1 && (errno==EAGAIN || errno==EWOULDBLOCK))
+    {
+      SPDLOG_INFO("Processed all incoming connection requests.");
+      break;
+    }
+    else if(client_fd==-1)
+    {
+      SPDLOG_ERROR("Could not accept client connection request.");
+      continue;
+    }
+    SPDLOG_INFO("Connected to new client.");
+    
+    int ret_val = register_with_epoll(client_fd, EPOLLET | EPOLLIN | EPOLLHUP | EPOLLRDHUP);
+    if(ret_val<0)
+    {
+      SPDLOG_ERROR("Could not register client with epoll");
+      continue;
+    }
+  }
 }
 
 int tt::chat::server::Server::create_epoll()
@@ -100,6 +114,10 @@ int tt::chat::server::Server::create_epoll()
   return epoll_fd;
 }
 
+// Registers socket fd with epoll with opts flags set.
+// Returns the return value of epoll_ctl.
+// 0 -> Success, 
+// -1 -> Failed 
 int tt::chat::server::Server::register_with_epoll(int fd, int opts)
 {
   epoll_event event{};
