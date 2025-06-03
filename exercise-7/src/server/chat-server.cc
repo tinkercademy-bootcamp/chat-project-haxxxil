@@ -42,7 +42,7 @@ tt::chat::server::Server::~Server() {
 void tt::chat::server::Server::handle_events() {
   const int MAX_EVENTS = 128;
   epoll_event events[MAX_EVENTS];
-  const int timeout_ms = 100;
+  const int timeout_ms = 10;
 
   while(true)
   {
