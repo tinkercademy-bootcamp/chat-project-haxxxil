@@ -22,9 +22,12 @@ class ClientInfo {
     ~ClientInfo();
     bool reset_queue();
     bool send_data();
+    bool read_data();
     bool add_to_queue(std::shared_ptr<tt::chat::comms::Command> cmd_req);
     int get_channel();
     bool set_channel(int chan);
+
+    std::string read_buf;
 
   private:
     std::string username;

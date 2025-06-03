@@ -44,6 +44,7 @@ void tt::chat::server::Server::handle_events() {
   epoll_event events[MAX_EVENTS];
   const int timeout_ms = 10;
 
+
   while(true)
   {
     const int num_events = epoll_wait(epoll_, events, MAX_EVENTS, timeout_ms);
@@ -61,11 +62,16 @@ void tt::chat::server::Server::handle_events() {
       if(event.events & EPOLLIN)
       {
         // check command sent by client and process
+        auto client_ptr = fd_to_client[event.data.fd];
+        tt::chat::comms::read_from_socket(event.data.fd, client_ptr->read_buf);
+        client_ptr->read_data();
       }
 
       if(event.events & EPOLLOUT)
       {
         // send remaining client data
+        auto client_ptr = fd_to_client[event.data.fd];
+        client_ptr->send_data();
       }
     }
   }

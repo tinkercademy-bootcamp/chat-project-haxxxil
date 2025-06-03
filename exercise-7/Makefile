@@ -36,7 +36,7 @@ NON_MAIN_OBJS := $(filter-out %main.cc.o, $(OBJS))
 DEPS := $(OBJS:.o=.d)
 
 # Every folder in ./src will need to be passed to GCC so that it can find header files
-INC_DIRS := $(shell find $(SRC_DIR) -type d -maxdepth 1)
+INC_DIRS := $(shell find $(SRC_DIR) -maxdepth 1 -type d)
 # Add a prefix to INC_DIRS. So moduleA would become -ImoduleA. GCC understands this -I flag
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 

@@ -6,7 +6,7 @@
 
 namespace tt::chat::comms {
 
-std::string read_from_socket();
+void read_from_socket(int sockfd, std::string & readStr);
 int write_to_socket(char * message, int msg_size);
 
 class Command {
