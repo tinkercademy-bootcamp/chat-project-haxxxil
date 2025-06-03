@@ -2,6 +2,7 @@
 #define COMMS_H
 
 #include <string>
+#include <cereal/archives/portable_binary.hpp>
 
 namespace tt::chat::comms {
 
@@ -25,8 +26,17 @@ class Command {
 
     char * get_string_ptr();
     unsigned get_string_size();
-    bool createCommand(std::string & data);
-    bool createString();
+
+    bool serialize_req();
+    bool deserialize_req();
+    
+
+private:
+    template<class Archive>
+    void serialize(Archive & archive)
+    {
+      archive(cmd, user, message);
+    }
 };
 
 }
