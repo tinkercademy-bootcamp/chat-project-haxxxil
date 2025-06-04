@@ -1,6 +1,9 @@
 #include "comms.h"
+#include <cerrno>
 #include <cstdint>
 #include <sstream>
+#include <sys/epoll.h>
+#include <sys/socket.h>
 #include <unistd.h>
 
 namespace tcc = tt::chat::comms;
@@ -38,5 +41,45 @@ tcc::Message::Message(std::shared_ptr<tcc::Command> msg_cmd)
 tcc::Message::SEND_STATUS 
 tcc::Message::send_message(int sockfd, int epollfd)
 {
-  
+  while(sent_bytes<msg_len.size())
+  {
+    uint32_t rem_bytes = msg_len.size() - sent_bytes;
+    int ret_val = send(sockfd, ((char*)msg_len.data()) + sent_bytes, rem_bytes, 0);
+    if(ret_val==0) return ERROR;
+    if(ret_val<0)
+    {
+      if(errno==EAGAIN || errno==EWOULDBLOCK)
+      {
+        epoll_event event;
+        event.events = EPOLLIN | EPOLLET | EPOLLOUT;
+        event.data.fd = sockfd;
+        epoll_ctl(epollfd, EPOLL_CTL_MOD, sockfd, &event);
+        return BLOCKED;
+      }
+      else return ERROR;
+    }
+  }
+
+  int tot_bytes = msg_len.size() + cmd_ptr->cmd_request.size();
+  while(sent_bytes<tot_bytes)
+  {
+    uint32_t rem_bytes = tot_bytes - sent_bytes;
+    uint32_t cur_pos = sent_bytes - msg_len.size();
+    int ret_val = send(sockfd, cmd_ptr->cmd_request.data() + cur_pos, rem_bytes, 0);
+    if(ret_val==0) return ERROR;
+    if(ret_val<0)
+    {
+      if(errno==EAGAIN || errno==EWOULDBLOCK)
+      {
+        epoll_event event;
+        event.events = EPOLLIN | EPOLLET | EPOLLOUT;
+        event.data.fd = sockfd;
+        epoll_ctl(epollfd, EPOLL_CTL_MOD, sockfd, &event);
+        return BLOCKED;
+      }
+      else return ERROR;
+    }
+  }
+
+  return SENT;
 }

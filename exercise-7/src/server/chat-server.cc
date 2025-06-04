@@ -72,6 +72,10 @@ void tt::chat::server::Server::handle_events() {
 
       if(event.events & EPOLLOUT)
       {
+        epoll_event mod_event{};
+        mod_event.data.fd = event.data.fd;
+        mod_event.events = EPOLLIN | EPOLLET;
+        epoll_ctl(epoll_, EPOLL_CTL_MOD, event.data.fd, &mod_event);
         // send remaining client data
         auto client_ptr = fd_to_client[event.data.fd];
         client_ptr->send_data(epoll_);
