@@ -1,6 +1,8 @@
 #ifndef COMMS_H
 #define COMMS_H
 
+#include <cstdint>
+#include <memory>
 #include <sstream>
 #include <string>
 #include <cereal/archives/portable_binary.hpp>
@@ -34,6 +36,25 @@ class Command {
     {
       archive(cmd, user, message);
     }
+};
+
+class Message {
+public:
+  enum SEND_STATUS{
+    SENT,
+    BLOCKED,
+    PARTIAL,
+    ERROR
+  };
+
+  Message(std::shared_ptr<tt::chat::comms::Command> msg_cmd);
+  SEND_STATUS send_message(int sockfd);
+
+private:
+  uint32_t sent_bytes;
+  // final message is msg_len + cmd_ptr->cmd_request
+  std::string msg_len;
+  std::shared_ptr<tt::chat::comms::Command> cmd_ptr;
 };
 
 }

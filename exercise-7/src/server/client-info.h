@@ -24,7 +24,7 @@ class ClientInfo {
     ClientInfo(std::string & user, int fd);
     ~ClientInfo();
     bool reset_queue();
-    bool send_data();
+    bool send_data(int & epoll_fd);
     bool read_data(tt::chat::server::Server& serv);
     bool add_to_queue(std::shared_ptr<tt::chat::comms::Command> cmd_req);
     int get_channel();

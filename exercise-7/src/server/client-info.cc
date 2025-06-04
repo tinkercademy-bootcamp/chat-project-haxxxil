@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <cstring>
 #include <memory>
+#include <netinet/in.h>
 #include <sstream>
 #include <unistd.h>
 
@@ -39,8 +40,9 @@ bool tt::chat::server::ClientInfo::reset_queue()
 }
 
     
-bool tt::chat::server::ClientInfo::send_data()
+bool tt::chat::server::ClientInfo::send_data(int & epoll_fd)
 {
+  
   return true;
 }
 
@@ -52,6 +54,7 @@ bool tt::chat::server::ClientInfo::read_data(tt::chat::server::Server& serv)
 
     uint32_t msg_len;
     std::memcpy(&msg_len, read_buf.data(), sizeof(uint32_t));
+    msg_len = ntohl(msg_len);
     if(read_buf.size()<msg_len + sizeof(uint32_t)) break;
 
     std::shared_ptr<tt::chat::comms::Command> new_cmd = std::make_shared<tt::chat::comms::Command>();
@@ -60,6 +63,7 @@ bool tt::chat::server::ClientInfo::read_data(tt::chat::server::Server& serv)
       std::istringstream payload(read_buf.substr(sizeof(msg_len), msg_len));
       cereal::PortableBinaryInputArchive archive(payload);
       new_cmd->serialize(archive);
+      new_cmd->cmd_request = read_buf.substr(sizeof(msg_len), msg_len);
     }
     read_buf.erase(0, sizeof(msg_len) + msg_len);
     serv.exec_command(new_cmd);

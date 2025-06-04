@@ -74,7 +74,7 @@ void tt::chat::server::Server::handle_events() {
       {
         // send remaining client data
         auto client_ptr = fd_to_client[event.data.fd];
-        client_ptr->send_data();
+        client_ptr->send_data(epoll_);
       }
     }
   }
@@ -144,7 +144,7 @@ void tt::chat::server::Server::exec_command(std::shared_ptr<tt::chat::comms::Com
     {
       auto client_ptr = client_pair.second;
       client_ptr->add_to_queue(cmd);
-      client_ptr->send_data();
+      client_ptr->send_data(epoll_);
     }
   }
 }
