@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <unordered_map>
 #include <memory>
+#include <algorithm>
 #include "client-info.h"
 #include "net/comms.h"
 

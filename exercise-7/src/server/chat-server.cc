@@ -1,4 +1,7 @@
+#include <algorithm>
 #include <cerrno>
+#include <iterator>
+#include <memory>
 #include <netinet/in.h>
 #include <sys/epoll.h>
 #include <sys/socket.h>
@@ -135,5 +138,13 @@ int tt::chat::server::Server::register_with_epoll(int fd, int opts)
 
 void tt::chat::server::Server::exec_command(std::shared_ptr<tt::chat::comms::Command> cmd)
 {
-
+  if(cmd->cmd==tt::chat::comms::Command::SEND_MSG)
+  {
+    for(auto& client_pair: fd_to_client)
+    {
+      auto client_ptr = client_pair.second;
+      client_ptr->add_to_queue(cmd);
+      client_ptr->send_data();
+    }
+  }
 }

@@ -37,7 +37,7 @@ class ClientInfo {
     int sockfd;
     unsigned sent_size;
     int channel;
-    std::queue<tt::chat::comms::Command> req_queue;
+    std::queue<std::shared_ptr<tt::chat::comms::Command>> req_queue;
 };
 
 }
