@@ -1,8 +1,10 @@
 #ifndef COMMS_H
 #define COMMS_H
 
+#include <sstream>
 #include <string>
 #include <cereal/archives/portable_binary.hpp>
+#include <cereal/types/string.hpp>
 
 namespace tt::chat::comms {
 
@@ -27,11 +29,6 @@ class Command {
     char * get_string_ptr();
     unsigned get_string_size();
 
-    bool serialize_req();
-    bool deserialize_req();
-    
-
-private:
     template<class Archive>
     void serialize(Archive & archive)
     {

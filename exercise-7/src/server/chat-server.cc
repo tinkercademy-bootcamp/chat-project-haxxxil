@@ -64,7 +64,7 @@ void tt::chat::server::Server::handle_events() {
         // check command sent by client and process
         auto client_ptr = fd_to_client[event.data.fd];
         tt::chat::comms::read_from_socket(event.data.fd, client_ptr->read_buf);
-        client_ptr->read_data();
+        client_ptr->read_data(*this);
       }
 
       if(event.events & EPOLLOUT)
@@ -131,4 +131,9 @@ int tt::chat::server::Server::register_with_epoll(int fd, int opts)
   event.events = opts;
 
   return epoll_ctl(epoll_, EPOLL_CTL_ADD, fd, &event);
+}
+
+void tt::chat::server::Server::exec_command(std::shared_ptr<tt::chat::comms::Command> cmd)
+{
+
 }

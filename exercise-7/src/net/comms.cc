@@ -1,4 +1,5 @@
 #include "comms.h"
+#include <sstream>
 #include <unistd.h>
 
 // Returns false if connection has closed.

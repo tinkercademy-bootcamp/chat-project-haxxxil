@@ -1,10 +1,13 @@
 #ifndef CLIENT_INFO_H
 #define CLIENT_INFO_H
 
+#include "forward.h"
 #include <queue>
 #include <string>
 #include <memory>
+#include "cereal/archives/portable_binary.hpp"
 #include "net/comms.h"
+#include "chat-server.h"
 
 namespace tt::chat::server {
 
@@ -22,7 +25,7 @@ class ClientInfo {
     ~ClientInfo();
     bool reset_queue();
     bool send_data();
-    bool read_data();
+    bool read_data(tt::chat::server::Server& serv);
     bool add_to_queue(std::shared_ptr<tt::chat::comms::Command> cmd_req);
     int get_channel();
     bool set_channel(int chan);

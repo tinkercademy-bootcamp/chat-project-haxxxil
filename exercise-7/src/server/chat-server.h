@@ -1,12 +1,15 @@
 #ifndef CHAT_SERVER_H
 #define CHAT_SERVER_H
 
+#include "forward.h"
 #include <netinet/in.h>
 #include <sys/epoll.h>
 #include <errno.h>
 #include <unordered_map>
 #include <memory>
 #include "client-info.h"
+#include "net/comms.h"
+
 namespace tt::chat::server {
 
 const int UNINIT = -11;
@@ -16,6 +19,7 @@ public:
   Server(int port);
   ~Server();
   void handle_events();
+  void exec_command(std::shared_ptr<tt::chat::comms::Command> cmd);
 
 private:
   int socket_ = UNINIT;
