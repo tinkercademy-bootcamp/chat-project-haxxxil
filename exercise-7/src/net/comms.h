@@ -7,6 +7,7 @@
 #include <string>
 #include <cereal/archives/portable_binary.hpp>
 #include <cereal/types/string.hpp>
+#include <arpa/inet.h>
 
 namespace tt::chat::comms {
 
@@ -48,7 +49,7 @@ public:
   };
 
   Message(std::shared_ptr<tt::chat::comms::Command> msg_cmd);
-  SEND_STATUS send_message(int sockfd);
+  SEND_STATUS send_message(int sockfd, int epollfd);
 
 private:
   uint32_t sent_bytes;
