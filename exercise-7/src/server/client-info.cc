@@ -72,7 +72,8 @@ bool tt::chat::server::ClientInfo::read_data(tt::chat::server::Server& serv)
 
 bool tt::chat::server::ClientInfo::add_to_queue(std::shared_ptr<tt::chat::comms::Command> cmd_req)
 {
-  req_queue.emplace(cmd_req);
+  std::shared_ptr<tt::chat::comms::Message> msg_ptr = std::make_shared<tt::chat::comms::Message>(cmd_req);
+  req_queue.emplace(msg_ptr);
   return true;
 }
 
