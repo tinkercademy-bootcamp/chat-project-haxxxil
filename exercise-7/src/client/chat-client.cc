@@ -1,6 +1,7 @@
 #include "chat-client.h"
 #include "../net/chat-sockets.h"
 #include "../utils.h"
+#include <sys/epoll.h>
 
 tt::chat::client::Client::Client(int port,
                                          const std::string &server_address)
@@ -13,24 +14,44 @@ tt::chat::client::Client::Client(int port,
 }
 
 std::string tt::chat::client::Client::send_and_receive_message() {
-  using namespace tt::chat;
-  char recv_buffer[kBufferSize] = {0};
+  epoll_event ev{};
+  ev.data.fd = socket_;
+  ev.events = EPOLLIN;
+  epoll_ctl(epoll_, EPOLL_CTL_ADD, socket_, &ev);
+  const int MAX_EVENTS = 128;
+  epoll_event events[MAX_EVENTS];
+  const int timeout_ms = 100;
 
-  std::string message = "Hello World!";
+  while(true)
+  {
+    const int num_events = epoll_wait(epoll_, events, MAX_EVENTS, timeout_ms);
 
-  // Send the message to the server
-  send(socket_, message.c_str(), message.size(), 0);
-  std::cout << "Sent: " << message << "\n";
+    for(int i=0; i<num_events; i++)
+    {
+      const epoll_event& event = events[i];
 
-  // Receive response from the server
-  ssize_t read_size = read(socket_, recv_buffer, kBufferSize);
-  if (read_size > 0) {
-    return std::string(recv_buffer);
-  } else if (read_size == 0) {
-    return "Server closed connection.\n";
-  } else {
-    return "Read error.\n";
+      if(event.events & EPOLLIN)
+      {
+        // check command sent by client and process
+        tt::chat::comms::read_from_socket(socket_, read_buf);
+      }
+
+      if(event.events & EPOLLOUT)
+      {
+        epoll_event mod_event{};
+        mod_event.data.fd = event.data.fd;
+        mod_event.events = EPOLLIN;
+        epoll_ctl(epoll_, EPOLL_CTL_MOD, event.data.fd, &mod_event);
+        // send remaining client data
+        
+      }
+    }
   }
+}
+
+bool tt::chat::client::Client::read_data()
+{
+  
 }
 
 tt::chat::client::Client::~Client() { close(socket_); }

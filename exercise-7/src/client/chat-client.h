@@ -4,6 +4,9 @@
 #include <netinet/in.h>
 #include <string>
 #include <sys/epoll.h>
+#include "net/misc.h"
+#include "net/comms.h"
+#include "net/chat-sockets.h"
 
 namespace tt::chat::client {
 class Client {
@@ -15,6 +18,8 @@ public:
 private:
   int socket_;
   int epoll_;
+  std::string read_buf;
+  bool read_data();
   sockaddr_in create_server_address(const std::string &server_ip, int port);
   void connect_to_server(int sock, sockaddr_in &server_address);
 
