@@ -58,6 +58,7 @@ tcc::Message::send_message(int sockfd, int epollfd)
       }
       else return ERROR;
     }
+    sent_bytes += ret_val;
   }
 
   int tot_bytes = msg_len.size() + cmd_ptr->cmd_request.size();
@@ -79,6 +80,7 @@ tcc::Message::send_message(int sockfd, int epollfd)
       }
       else return ERROR;
     }
+    sent_bytes += ret_val;
   }
 
   return SENT;
