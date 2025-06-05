@@ -33,6 +33,7 @@ void tt::chat::client::Client::input_handler()
       }
       new_cmd->cmd_request = oss.str();
       add_to_queue(new_cmd);
+      send_data();
     }
     else break;
   }
@@ -86,7 +87,19 @@ std::string tt::chat::client::Client::send_and_receive_message() {
 
 bool tt::chat::client::Client::send_data()
 {
-  
+  queue_sem.acquire();
+  while(!req_queue.empty())
+  {
+    auto next_msg = req_queue.front();
+    if(next_msg->send_message(socket_, epoll_)
+      == tt::chat::comms::Message::SENT)
+    {
+      req_queue.pop();
+    }
+    else break;
+  }
+  queue_sem.release();
+  return true;
 }
 
 bool tt::chat::client::Client::read_data()
