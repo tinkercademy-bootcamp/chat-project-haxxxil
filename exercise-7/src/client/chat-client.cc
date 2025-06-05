@@ -7,6 +7,9 @@ tt::chat::client::Client::Client(int port,
     : socket_{tt::chat::net::create_socket()} {
   sockaddr_in address = create_server_address(server_address, port);
   connect_to_server(socket_, address);
+  tt::chat::net::set_nonblocking_socket(socket_);
+  epoll_ = epoll_create1(0);
+  check_error(epoll_<0, "Failed to create epoll.");
 }
 
 std::string tt::chat::client::Client::send_and_receive_message() {

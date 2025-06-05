@@ -3,6 +3,7 @@
 
 #include <netinet/in.h>
 #include <string>
+#include <sys/epoll.h>
 
 namespace tt::chat::client {
 class Client {
