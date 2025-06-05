@@ -51,7 +51,7 @@ tcc::Message::send_message(int sockfd, int epollfd)
       if(errno==EAGAIN || errno==EWOULDBLOCK)
       {
         epoll_event event;
-        event.events = EPOLLIN | EPOLLET | EPOLLOUT;
+        event.events = EPOLLIN | EPOLLOUT;
         event.data.fd = sockfd;
         epoll_ctl(epollfd, EPOLL_CTL_MOD, sockfd, &event);
         return BLOCKED;
@@ -73,7 +73,7 @@ tcc::Message::send_message(int sockfd, int epollfd)
       if(errno==EAGAIN || errno==EWOULDBLOCK)
       {
         epoll_event event;
-        event.events = EPOLLIN | EPOLLET | EPOLLOUT;
+        event.events = EPOLLIN | EPOLLOUT;
         event.data.fd = sockfd;
         epoll_ctl(epollfd, EPOLL_CTL_MOD, sockfd, &event);
         return BLOCKED;

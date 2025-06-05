@@ -31,7 +31,7 @@ tt::chat::server::Server::Server(int port)
   err_code = listen(socket_, 3);
   check_error(err_code < 0, "listen failed\n");
 
-  int reg_val = register_with_epoll(socket_, EPOLLIN | EPOLLET);
+  int reg_val = register_with_epoll(socket_, EPOLLIN);
   check_error(reg_val<0, "Failed to use epoll.");
 
   std::cout << "Server listening on port " << port << "\n";
@@ -74,7 +74,7 @@ void tt::chat::server::Server::handle_events() {
       {
         epoll_event mod_event{};
         mod_event.data.fd = event.data.fd;
-        mod_event.events = EPOLLIN | EPOLLET;
+        mod_event.events = EPOLLIN;
         epoll_ctl(epoll_, EPOLL_CTL_MOD, event.data.fd, &mod_event);
         // send remaining client data
         auto client_ptr = fd_to_client[event.data.fd];
@@ -111,7 +111,7 @@ void tt::chat::server::Server::handle_accept() {
     }
     SPDLOG_INFO("Connected to new client.");
     
-    int ret_val = register_with_epoll(client_fd, EPOLLET | EPOLLIN | EPOLLHUP | EPOLLRDHUP);
+    int ret_val = register_with_epoll(client_fd, EPOLLIN | EPOLLHUP | EPOLLRDHUP);
     if(ret_val<0)
     {
       SPDLOG_ERROR("Could not register client with epoll");
