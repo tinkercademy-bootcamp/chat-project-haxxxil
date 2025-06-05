@@ -5,6 +5,7 @@
 #include <memory>
 #include <sstream>
 #include <string>
+#include <cstring>
 #include <cereal/archives/portable_binary.hpp>
 #include <cereal/types/string.hpp>
 #include <arpa/inet.h>
@@ -13,6 +14,7 @@ namespace tt::chat::comms {
 
 bool read_from_socket(int sockfd, std::string & readStr);
 int write_to_socket(char * message, int msg_size);
+
 
 class Command {
   public:
@@ -57,6 +59,8 @@ private:
   std::string msg_len;
   std::shared_ptr<tt::chat::comms::Command> cmd_ptr;
 };
+
+std::shared_ptr<tt::chat::comms::Command> read_command(std::string& read_buf);
 
 }
 

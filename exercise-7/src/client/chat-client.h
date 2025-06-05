@@ -13,6 +13,7 @@ public:
 
 private:
   int socket_;
+  int epoll_;
   sockaddr_in create_server_address(const std::string &server_ip, int port);
   void connect_to_server(int sock, sockaddr_in &server_address);
 

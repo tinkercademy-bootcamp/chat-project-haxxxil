@@ -1,6 +1,7 @@
 #include "comms.h"
 #include <cerrno>
 #include <cstdint>
+#include <memory>
 #include <sstream>
 #include <sys/epoll.h>
 #include <sys/socket.h>
@@ -84,4 +85,28 @@ tcc::Message::send_message(int sockfd, int epollfd)
   }
 
   return SENT;
+}
+
+
+std::shared_ptr<tt::chat::comms::Command> 
+tt::chat::comms::read_command(std::string& read_buf)
+{
+  std::shared_ptr<tt::chat::comms::Command> np(nullptr);
+  if(read_buf.size()<4) return np;
+
+  uint32_t msg_len;
+  std::memcpy(&msg_len, read_buf.data(), sizeof(uint32_t));
+  msg_len = ntohl(msg_len);
+  if(read_buf.size()<msg_len + sizeof(uint32_t)) return np;
+
+  std::shared_ptr<tt::chat::comms::Command> new_cmd = std::make_shared<tt::chat::comms::Command>();
+
+  {
+    std::istringstream payload(read_buf.substr(sizeof(msg_len), msg_len));
+    cereal::PortableBinaryInputArchive archive(payload);
+    new_cmd->serialize(archive);
+    new_cmd->cmd_request = read_buf.substr(sizeof(msg_len), msg_len);
+  }
+  read_buf.erase(0, sizeof(msg_len) + msg_len);
+  return new_cmd;
 }
