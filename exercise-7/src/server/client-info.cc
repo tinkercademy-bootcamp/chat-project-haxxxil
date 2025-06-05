@@ -42,7 +42,16 @@ bool tt::chat::server::ClientInfo::reset_queue()
     
 bool tt::chat::server::ClientInfo::send_data(int & epoll_fd)
 {
-  
+  while(!req_queue.empty())
+  {
+    auto next_msg = req_queue.front();
+    if(next_msg->send_message(sockfd, epoll_fd)
+      == tt::chat::comms::Message::SENT)
+    {
+      req_queue.pop();
+    }
+    else break;
+  }
   return true;
 }
 
