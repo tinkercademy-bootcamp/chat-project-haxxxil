@@ -3,11 +3,14 @@
 
 #include <netinet/in.h>
 #include <string>
+#include <iostream>
 #include <sys/epoll.h>
 #include "net/misc.h"
 #include "net/comms.h"
 #include "net/chat-sockets.h"
 #include <memory>
+#include <semaphore>
+#include <queue>
 
 namespace tt::chat::client {
 class Client {
@@ -21,11 +24,15 @@ private:
   int socket_;
   int epoll_;
   std::string read_buf;
+  std::queue<std::shared_ptr<tt::chat::comms::Message>> req_queue;
+  std::binary_semaphore queue_sem;
+
   bool read_data();
   bool send_data();
   bool exec_cmd(std::shared_ptr<tt::chat::comms::Command> cmd);
   sockaddr_in create_server_address(const std::string &server_ip, int port);
   void connect_to_server(int sock, sockaddr_in &server_address);
+  bool add_to_queue(std::shared_ptr<tt::chat::comms::Command> cmd_req);
 
   static constexpr int kBufferSize = 1024;
 };

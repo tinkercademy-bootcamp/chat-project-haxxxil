@@ -1,11 +1,13 @@
 #include "chat-client.h"
 #include "../net/chat-sockets.h"
 #include "../utils.h"
+#include <sstream>
+#include <string>
 #include <sys/epoll.h>
 
 tt::chat::client::Client::Client(int port,
                                          const std::string &server_address)
-    : socket_{tt::chat::net::create_socket()} {
+    : socket_{tt::chat::net::create_socket()}, queue_sem(1) {
   sockaddr_in address = create_server_address(server_address, port);
   connect_to_server(socket_, address);
   tt::chat::net::set_nonblocking_socket(socket_);
@@ -15,7 +17,34 @@ tt::chat::client::Client::Client(int port,
 
 void tt::chat::client::Client::input_handler()
 {
-  
+  while(true)
+  {
+    std::string line;
+    if(std::getline(std::cin, line))
+    {
+      std::shared_ptr<tt::chat::comms::Command> new_cmd = std::make_shared<tt::chat::comms::Command>();
+      new_cmd->message = line;
+      new_cmd->cmd = tt::chat::comms::Command::SEND_MSG;
+      new_cmd->user = "user1";
+      std::ostringstream oss;
+      {
+        cereal::PortableBinaryOutputArchive archive(oss);
+        archive(*new_cmd);
+      }
+      new_cmd->cmd_request = oss.str();
+      add_to_queue(new_cmd);
+    }
+    else break;
+  }
+}
+
+bool tt::chat::client::Client::add_to_queue(std::shared_ptr<tt::chat::comms::Command> cmd_req)
+{
+  std::shared_ptr<tt::chat::comms::Message> msg_ptr = std::make_shared<tt::chat::comms::Message>(cmd_req);
+  queue_sem.acquire();
+  req_queue.emplace(msg_ptr);
+  queue_sem.release();
+  return true;
 }
 
 std::string tt::chat::client::Client::send_and_receive_message() {
