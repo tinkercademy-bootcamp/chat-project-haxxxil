@@ -13,6 +13,11 @@ tt::chat::client::Client::Client(int port,
   check_error(epoll_<0, "Failed to create epoll.");
 }
 
+void tt::chat::client::Client::input_handler()
+{
+  
+}
+
 std::string tt::chat::client::Client::send_and_receive_message() {
   epoll_event ev{};
   ev.data.fd = socket_;
@@ -44,10 +49,15 @@ std::string tt::chat::client::Client::send_and_receive_message() {
         mod_event.events = EPOLLIN;
         epoll_ctl(epoll_, EPOLL_CTL_MOD, event.data.fd, &mod_event);
         // send remaining client data
-        
+        send_data();
       }
     }
   }
+}
+
+bool tt::chat::client::Client::send_data()
+{
+  
 }
 
 bool tt::chat::client::Client::read_data()
@@ -60,7 +70,7 @@ bool tt::chat::client::Client::read_data()
   }
 }
 
-void tt::chat::client::Client::exec_cmd(std::shared_ptr<tt::chat::comms::Command> cmd)
+bool tt::chat::client::Client::exec_cmd(std::shared_ptr<tt::chat::comms::Command> cmd)
 {
   if(cmd->cmd==tt::chat::comms::Command::SEND_MSG)
   {
