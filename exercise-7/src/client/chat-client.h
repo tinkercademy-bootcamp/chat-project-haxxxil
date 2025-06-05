@@ -7,6 +7,7 @@
 #include "net/misc.h"
 #include "net/comms.h"
 #include "net/chat-sockets.h"
+#include <memory>
 
 namespace tt::chat::client {
 class Client {
@@ -20,6 +21,7 @@ private:
   int epoll_;
   std::string read_buf;
   bool read_data();
+  bool exec_cmd(std::shared_ptr<tt::chat::comms::Command> cmd);
   sockaddr_in create_server_address(const std::string &server_ip, int port);
   void connect_to_server(int sock, sockaddr_in &server_address);
 

@@ -34,6 +34,7 @@ std::string tt::chat::client::Client::send_and_receive_message() {
       {
         // check command sent by client and process
         tt::chat::comms::read_from_socket(socket_, read_buf);
+        read_data();
       }
 
       if(event.events & EPOLLOUT)
@@ -51,7 +52,20 @@ std::string tt::chat::client::Client::send_and_receive_message() {
 
 bool tt::chat::client::Client::read_data()
 {
-  
+  while(true)
+  {
+    auto cmd_ptr = tt::chat::comms::read_command(read_buf);
+    if(!cmd_ptr) return true;
+    exec_cmd(cmd_ptr);
+  }
+}
+
+void tt::chat::client::Client::exec_cmd(std::shared_ptr<tt::chat::comms::Command> cmd)
+{
+  if(cmd->cmd==tt::chat::comms::Command::SEND_MSG)
+  {
+    std::cout<<"\033[36m"<<cmd->message<<"\033[0m\n";
+  }
 }
 
 tt::chat::client::Client::~Client() { close(socket_); }

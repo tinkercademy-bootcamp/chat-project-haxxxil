@@ -63,6 +63,7 @@ bool tt::chat::server::ClientInfo::read_data(tt::chat::server::Server& serv)
     if(!cmd_ptr) return true;
     serv.exec_command(cmd_ptr);
   }
+  return true;
 };
 
 bool tt::chat::server::ClientInfo::add_to_queue(std::shared_ptr<tt::chat::comms::Command> cmd_req)
